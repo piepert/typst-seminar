@@ -67,7 +67,7 @@
 
 #slide[
   A fancy dynamic slide without a title.
-  #uncover("2-")[This appears later!]
+  #uncover("2-")[This appears later!#slide-footnote("Hey!")]
 ]
 
 #slide()[

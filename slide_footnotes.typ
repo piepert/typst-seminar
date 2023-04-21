@@ -35,4 +35,6 @@
             }
         }
     })
+
+    state("slide_footnotes").update(())
 }

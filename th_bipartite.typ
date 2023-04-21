@@ -1,6 +1,7 @@
 // This theme is inspired by https://slidesgo.com/theme/modern-annual-report
 
 #import "slide_footnotes.typ": *
+#let slide_footnote_counter = page
 
 #let bipartite-theme() = data => {
   let my-dark = rgb("#192e41")
@@ -73,7 +74,23 @@
           height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
           stroke: none, fill: my-bright,
           align(left + horizon, text(fill: my-dark, size: 0.6em,
-            [#gen-footnotes() #h(1fr) #counter("logical-slide").display() / #locate(loc => counter("logical-slide").final(loc).at(0))]))
+            [
+              #locate(loc => {
+                let s = state("current_slide_section").at(loc)
+
+                if s != none {
+                  s
+
+                  if state("slide_footnotes").at(loc) != none and state("slide_footnotes").at(loc).len() > 0 {
+                    h(0.5em)
+                    sym.dot.c
+                    h(0.5em)
+                  }
+                }
+              })
+              #gen-footnotes()
+              #h(1fr)
+              #counter(slide_footnote_counter).display() / #locate(loc => counter(slide_footnote_counter).final(loc).at(0))]))
         )
     })
   }
@@ -109,7 +126,17 @@
           height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
           stroke: none, fill: my-bright,
           align(left + horizon, text(fill: my-dark, size: 0.6em,
-            [#counter("logical-slide").display() / #locate(loc => counter("logical-slide").final(loc).at(0)) #h(1fr) #gen-footnotes()]))
+            [#counter(slide_footnote_counter).display() / #locate(loc => counter(slide_footnote_counter).final(loc).at(0))
+            #locate(loc => {
+                let s = state("current_slide_section").at(loc)
+
+                if s != none {
+                  h(0.5em)
+                  sym.dot.c
+                  h(0.5em)
+                  s
+                }
+              }) #h(1fr) #gen-footnotes()]))
         )
 
         box(
