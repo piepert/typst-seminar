@@ -4,7 +4,7 @@
 #import "slide_sections.typ": *
 #import "latex_symbol.typ": latex-symbol
 
-#show "LaTeX": latex-symbol
+#show "LaTeX": [#h(-0.2em)#latex-symbol#h(-0.3em)]
 
 #set heading(numbering: "1.1.1.")
 #set text(lang: "de")
@@ -81,8 +81,8 @@
 ]
 
 #slide(title: "Die Vielfalt")[
-  "LaTeX" ist kein Programm, sondern:
-  - pdfLaTeX
+  „LaTeX“ ist kein Programm, sondern:
+  - pdfLa​TeX // Unicode-Charakter mit 0-Breite zwischen "La" und "TeX"
   - LuaTeX
   - XeTeX
   - MikTeX
@@ -268,6 +268,9 @@ $
 
   Offizielles Typst-Tutorial:
   - https://typst.app/docs/tutorial
+
+  Offizieller Typst-Discord:
+  - https://discord.gg/2uDybryKPe
 
   Code für diese Präsentation und weitere Beipsiele:
   - https://github.com/survari/typst-seminar
