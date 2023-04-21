@@ -29,7 +29,7 @@
             let i = 1
 
             for e in f {
-                [#super(str(i)) #e #h(0.5em)]
+                [#super(str(i))#e #h(0.5em)]
 
                 i += 1
             }
