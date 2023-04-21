@@ -202,12 +202,16 @@ $
 - Mathematik (Dokumentation mit Symbolen)
 */
 
-#slide(theme-variant: "center split white")[
-  #set text(size: 12pt)
-  #align(left, raw(lang: "latex", read("Beispiele/MatheDeltaEpsilon/edk_latex.tex")))
-][
-  #set text(size: 12pt)
-  #align(left, raw(lang: "typst", read("Beispiele/MatheDeltaEpsilon/edk_typst.typ")))
+#slide[
+  #table(columns: (50%, 50%),
+    stroke: none,
+    inset: 1em, [
+    #set text(size: 12pt)
+    #align(left, raw(lang: "latex", read("Beispiele/MatheDeltaEpsilon/edk_latex.tex")))
+  ], align(top)[
+    #set text(size: 12pt)
+    #align(left, raw(lang: "typst", read("Beispiele/MatheDeltaEpsilon/edk_typst.typ")))
+  ])
 ]
 
 #slide[
@@ -263,6 +267,9 @@ $
 ]
 
 #slide(title: "Weiteres")[
+  *Übrigens:* Diese gesamte Präsentation wurde alleine in Typst erstellt.
+
+  #set text(size: 20pt)
   Typst Dokumentation:
   - https://typst.app/docs/
 
