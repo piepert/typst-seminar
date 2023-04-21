@@ -2,13 +2,16 @@
 #import "th_bipartite.typ": *
 #import "slide_footnotes.typ": *
 #import "slide_sections.typ": *
+#import "latex_symbol.typ": latex-symbol
+
+#show "LaTeX": latex-symbol
 
 #set heading(numbering: "1.1.1.")
 #set text(lang: "de")
 #show: slides.with(
     authors: "Tristan Pieper",
     email: text(size: 0.75em, "tristan.pieper@uni-rostock.de"),
-    title: "Typst — Warum noch LaTeX lernen?",
+    title: "Typst — Hat LaTeX abgedankt?",
     subtitle: "Eine kurze Einführung in Typst",
     short-title: "Shorter title for slide footer",
     date: "1. Juni 2023",
@@ -259,11 +262,16 @@ Collected error summary (may duplicate other messages):
   ])
 ]
 
+#new-section("Eigene Templates und Skripts")
+/*
+- Seite bearbeiten, Seitengröße, Header, Footer, ...
+- Skripten (aufpassen: pure functions!)
+*/
+
 #new-section("Was Typst noch so alles kann")
 /*
 - Bibliographie
 - Figuren und Referenzen
-- Skripten
 - Dokumentation zeigen!!!
 - Raytracing (https://github.com/elteammate)
 */
@@ -281,44 +289,22 @@ Collected error summary (may duplicate other messages):
 - StackOverflow
 */
 
-#new-section("Wer sollte Typst benutzen?")
-/*
-- viele Programmierer-Ansätze
-- sehr komplexe Sachen, bes. was Fußnoten und komplexes Layouting braucht ist (noch) NICHT für Typst geeignet
-*/
-
 #new-section("Abschluss und Weiteres")
-/*
-- Erwartete Neuerungen
-- Roadmap
-- Tutorial
-*/
 
-#slide[
-  A fancy dynamic slide without a title.
-  #uncover("2-")[This appears later!#slide-footnote("Hey!")]
+#slide(title: "Wer sollte Typst benutzen?")[
+  /*
+  - viele Programmierer-Ansätze
+  - sehr komplexe Sachen, bes. was Fußnoten und komplexes Layouting braucht ist (noch) NICHT für Typst geeignet
+  */
 ]
 
-#slide()[
-  Focus!
-]
-
-#slide(title: "Take home message")[
-  Read the book!
-
-  Try it out!
-
-  Create themes!
-]
-
-#slide(theme-variant: "east", title: "On the right!")[
-  #lorem(40)
-]
-
-#slide(theme-variant: "center split")[
-  #lorem(40)
-][
-  #lorem(40)
+#slide(title: [Erwartete Neuerungen#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
+  #block[#align(top)[
+    - Fußnoten (und die komplette Überarbeitung der Layout-Engine)
+    - Paketmanager
+    - Verbesserung des Mathe-Layouts
+    - ...
+  ]]
 ]
 
 #slide(title: "Weiteres")[
