@@ -22,21 +22,178 @@
 ]
 
 #new-section("Kurzes Kennenlernen")
+/*
 - Wer hat schonmal LaTeX benutzt? → Ihr werdet euch glücklich schätzen
 - Wer hatte das IP-Modul? → Macht es einfacher
+*/
 
 #new-section("Probleme von LaTeX")
+/*
 - Kurze Historie zu TeX
 - Warum LaTeX entwickelt wurde
 - pdflatex, lualatex, xelatex, miktex, ...????
+*/
+#slide(title: "Alles beginnt mit...")[
+  #align(center)[
+    #image("img/donald_e_knuth.png", height: 75%)
+
+    Donald E. Knuth #text(size: 0.75em, "(geb. 10. Januar 1938)")
+  ]
+
+  /*
+  - Autor von TeX und METAFONT
+  - bekanntestes Werk neben TeX: The Art of Computer Programming
+  - TeX extra für sein Buch entwickelt, weil er besondere ästhetische Ansprüche hatte, die die Verleger nicht erfüllen konnten
+  */
+]
+
+#slide(title: "Dann kam...")[
+  #align(center)[
+    #image("img/leslie_lamport.png", height: 75%)
+
+    Leslie Lamport #text(size: 0.75em, "(geb. 7. Februar 1941)")
+  ]
+]
+
+#slide(title: "Die Vielfalt")[
+  "LaTeX" ist kein Programm, sondern:
+  - pdfLaTeX
+  - LuaTeX
+  - XeTeX
+  - MikTeX
+  - KaTeX
+  - ...
+]
+
+#slide(title: "Beispiel-Fehlermeldung (Typst)")[
+  #columns(2, [
+    Typst:
+```typst
+$
++ Dies
++ Ist
++ Eine
++ Liste!
+```
+
+#colbreak()
+#set text(size: 16pt)
+
+```
+  error: expected dollar sign
+  ┌─ test.typ:5:8
+  │
+5 │ + Liste!
+  │         ^
+```
+])
+]
+
+#slide(title: "Beispiel-Fehlermeldung (LaTeX)")[
+  #columns(2, [
+    #v(2em)
+    LaTeX:
+
+    #set text(size: 22pt)
+```tex
+\documentclass{article}
+
+\begin{document}
+    $
+
+    \begin{enumerate}
+        \item Dies
+        \item Ist
+        \item Eine
+        \item Liste!
+    \end{enumerate}
+\end{document}
+```
+
+#colbreak()
+#set text(size: 8pt)
+
+```
+Rc files read:
+  /path/.config/latexmk/latexmkrc
+Latexmk: This is Latexmk, John Collins, 17 Mar. 2022. Version 4.77, version: 4.77.
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex': File changes, etc:
+   Changed files, or newly in use since previous run(s):
+  /path/Desktop/Projekte/Typst/typst-seminar/.lt/test.tex
+  test.tex
+Rule 'pdflatex': The following rules & subrules became out-of-date:
+  pdflatex
+------------
+Run number 1 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -synctex=1 -interaction=nonstopmode -file-line-error -recorder  "/path/Desktop/Projekte/Typst/typst-seminar/.lt/test.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(/path/Desktop/Projekte/Typst/typst-seminar/.lt/test.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-04-10> (/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo)) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (./test.aux)
+/path/Desktop/Projekte/Typst/typst-seminar/.lt/test.tex:5: Missing $ inserted.
+<inserted text>
+                $
+l.5
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./test.aux) )
+(see the transcript file for additional information)</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on test.pdf (1 page, 13646 bytes).
+SyncTeX written on test.synctex.gz.
+Transcript written on test.log.
+Latexmk: If appropriate, the -f option can be used to get latexmk
+  to try to force complete processing.
+Latexmk: Getting log file 'test.log'
+Latexmk: Examining 'test.fls'
+Latexmk: Examining 'test.log'
+Latexmk: Log file says output to 'test.pdf'
+Latexmk: Errors, so I did not complete making targets
+Collected error summary (may duplicate other messages):
+  pdflatex: Command for 'pdflatex' gave return code 1
+      Refer to 'test.log' for details
+```
+  ])
+]
 
 #new-section("Die Lösung aller Probleme(?)")
+/*
+- Kurzer Vergleich:
+```tex|latex?
+\documentclass{article}
+
+\begin{document}
+    \begin{enumerate}
+        \item Dies
+        \item Ist
+        \item Eine
+        \item Liste!
+    \end{enumerate}
+\end{document}
+```
+  vs.
+```typst
+- Dies
+- Ist
+- Eine
+- Liste!
+```
+*/
 
 #new-section("Die Web-App")
+/*
 - Browser und Website öffnen
 - Anmeldung per tmp-Acc. oder eigene Accounts erstellen
+*/
 
 #new-section("Grundlegende Formatierung")
+/*
 - Titel
 - Fett, Kursiv
 - Listen
@@ -44,26 +201,57 @@
 - Schriftgröße und -farbe ändern
 - Textausrichtung
 - Mathematik (Dokumentation mit Symbolen)
+*/
+
+#slide(theme-variant: "center split white")[
+  #set text(size: 12pt)
+  #align(left, raw(lang: "latex", read("Beispiele/MatheDeltaEpsilon/edk_latex.tex")))
+][
+  #set text(size: 12pt)
+  #align(left, raw(lang: "typst", read("Beispiele/MatheDeltaEpsilon/edk_typst.typ")))
+]
+
+#slide[
+  #align(center, [
+    #image(width: 80%, "img/edk_latex.png")
+    #image(width: 80%, "img/edk_typst.png")
+  ])
+]
 
 #new-section("Was Typst noch so alles kann")
+/*
 - Bibliographie
 - Figuren und Referenzen
 - Skripten
 - Dokumentation zeigen!!!
+- Raytracing (https://github.com/elteammate)
+*/
+
+#slide(title: "Raytracing")[
+  #image("img/raytracer.png")
+
+  Voll funktionsfähiger Raytracer für 3D-Rendering.#slide-footnote(link("Autor: https://github.com/elteammate"))
+]
 
 #new-section("Was noch fehlt")
+/*
 - Fußnoten
 - Paketmanager
 - StackOverflow
+*/
 
 #new-section("Wer sollte Typst benutzen?")
+/*
 - viele Programmierer-Ansätze
 - sehr komplexe Sachen, bes. was Fußnoten und komplexes Layouting braucht ist (noch) NICHT für Typst geeignet
+*/
 
 #new-section("Abschluss und Weiteres")
+/*
 - Erwartete Neuerungen
 - Roadmap
 - Tutorial
+*/
 
 #slide[
   A fancy dynamic slide without a title.
