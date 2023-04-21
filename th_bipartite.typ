@@ -1,11 +1,13 @@
 // This theme is inspired by https://slidesgo.com/theme/modern-annual-report
 
+#import "slide_footnotes.typ": *
+
 #let bipartite-theme() = data => {
   let my-dark = rgb("#192e41")
   let my-bright = rgb("#fafafa")
   let my-accent = rgb("#fc9278")
 
-  let title-slide = {    
+  let title-slide = {
     block(
       width: 100%, height: 60%, outset: 0em, inset: 0em, breakable: false,
       stroke: none, spacing: 0em, fill: my-bright,
@@ -17,14 +19,14 @@
       align(center + horizon, text(fill: my-bright)[
         #text(size: 1.2em, data.subtitle)
         // #v(.0em)
-        
+
         #text(size: .9em)[ #data.authors.join(", ") #h(0.25em) #data.email #h(1em) #sym.dot.c #h(1em) #data.date ]
       ])
     )
     place(
       center + horizon, dy: 10%,
       rect(width: 6em, height: .5em, radius: .25em, fill: my-accent)
-    ) 
+    )
   }
 
   let displayed-title(slide-info) = if "title" in slide-info {
@@ -40,19 +42,40 @@
     let body = bodies.first()
 
     box(
-      width: if "title" in slide-info.keys() { 30% } else { 10% }, 
-      
-      height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+      height: 100% - 1em, outset: 0em, baseline: 0em,
       stroke: none, fill: my-dark,
-      align( left + horizon, displayed-title(slide-info) )
+
+      box(
+        width: if "title" in slide-info.keys() { 30% } else { 10% },
+
+        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+        stroke: none, fill: my-dark,
+        align( left + horizon, displayed-title(slide-info) )
+      ) +
+      box(
+        width: if "title" in slide-info.keys() { 70% } else { 90% },
+
+        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+        stroke: none, fill: my-bright,
+        align(left + horizon, text(fill: my-dark, body))
+      )
     )
-    box(
-      width: if "title" in slide-info.keys() { 70% } else { 90% }, 
-      
-      height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
-      stroke: none, fill: my-bright,
-      align(left + horizon, text(fill: my-dark, body))
-    )
+
+    v(0em, weak: true)
+    box(width: 100%, height: 1em, stroke: my-dark, fill: my-bright,
+      {
+        box(
+          width: if "title" in slide-info.keys() { 30% } else { 10% },
+          height: 100%, outset: 0em, stroke: none, fill: my-dark, [])
+
+        box(
+          width: if "title" in slide-info.keys() { 70% } else { 90% },
+          height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+          stroke: none, fill: my-bright,
+          align(left + horizon, text(fill: my-dark, size: 0.6em,
+            [#gen-footnotes() #h(1fr) #counter("logical-slide").display() / #locate(loc => counter("logical-slide").final(loc).at(0))]))
+        )
+    })
   }
 
   let east(slide-info, bodies) = {
@@ -61,20 +84,38 @@
     }
     let body = bodies.first()
 
-    box(
-      width: if "title" in slide-info.keys() { 70% } else { 90% }, 
-      
-      height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
-      stroke: none, fill: my-bright,
-      align(right + horizon, text(fill: my-dark, body))
+    box(height: 100% - 1em,
+      box(
+        width: if "title" in slide-info.keys() { 70% } else { 90% },
+
+        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+        stroke: none, fill: my-bright,
+        align(right + horizon, text(fill: my-dark, body))
+      )+
+      box(
+        width: if "title" in slide-info.keys() { 30% } else { 10% },
+
+        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+        stroke: none, fill: my-dark,
+        align( right + horizon, displayed-title(slide-info) )
+      )
     )
-    box(
-      width: if "title" in slide-info.keys() { 30% } else { 10% }, 
-      
-      height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
-      stroke: none, fill: my-dark,
-      align( right + horizon, displayed-title(slide-info) )
-    )
+
+    v(0em, weak: true)
+    box(width: 100%, height: 1em, stroke: my-dark, fill: my-bright,
+      {
+        box(
+          width: if "title" in slide-info.keys() { 70% } else { 90% },
+          height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+          stroke: none, fill: my-bright,
+          align(left + horizon, text(fill: my-dark, size: 0.6em,
+            [#counter("logical-slide").display() / #locate(loc => counter("logical-slide").final(loc).at(0)) #h(1fr) #gen-footnotes()]))
+        )
+
+        box(
+          width: if "title" in slide-info.keys() { 30% } else { 10% },
+          height: 100%, outset: 0em, stroke: none, fill: my-dark, [])
+    })
   }
 
   let center-split(slide-info, bodies) = {

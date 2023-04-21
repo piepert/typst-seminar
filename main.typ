@@ -1,5 +1,6 @@
 #import "slides.typ": *
 #import "th_bipartite.typ": *
+#import "slide_footnotes.typ": *
 #import "slide_sections.typ": *
 
 #set heading(numbering: "1.1.1.")
@@ -15,6 +16,10 @@
 )
 
 #set page(footer: text(fill: red, counter(page).display()))
+
+#slide[
+  #outline(depth: 1)
+]
 
 #new-section("Kurzes Kennenlernen")
 - Wer hat schonmal LaTeX benutzt? → Ihr werdet euch glücklich schätzen
@@ -60,10 +65,6 @@
 - Roadmap
 - Tutorial
 
-#slide(title: "A boring static slide")[
-  #outline(depth: 1)
-]
-
 #slide[
   A fancy dynamic slide without a title.
   #uncover("2-")[This appears later!]
@@ -92,12 +93,12 @@
 ]
 
 #slide(title: "Weiteres")[
-  Typst Dokumentation: 
+  Typst Dokumentation:
   - https://typst.app/docs/
-  
-  Offizielles Typst-Tutorial: 
+
+  Offizielles Typst-Tutorial:
   - https://typst.app/docs/tutorial
-  
+
   Code für diese Präsentation und weitere Beipsiele:
   - https://github.com/survari/typst-seminar
 ]
