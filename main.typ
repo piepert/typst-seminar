@@ -28,12 +28,8 @@
 */
 
 #new-section("Probleme von LaTeX")
-/*
-- Kurze Historie zu TeX
-- Warum LaTeX entwickelt wurde
-- pdflatex, lualatex, xelatex, miktex, ...????
-*/
-#slide(title: "Alles beginnt mit...")[
+
+#slide(title: "Alles begann mit...")[
   #align(center)[
     #image("img/donald_e_knuth.png", height: 75%)
 
@@ -41,7 +37,7 @@
   ]
 
   /*
-  - Autor von TeX und METAFONT
+  - Autor von TeX und METAFONT, entwickelt ab 1977
   - bekanntestes Werk neben TeX: The Art of Computer Programming
   - TeX extra für sein Buch entwickelt, weil er besondere ästhetische Ansprüche hatte, die die Verleger nicht erfüllen konnten
   */
@@ -53,6 +49,32 @@
 
     Leslie Lamport #text(size: 0.75em, "(geb. 7. Februar 1941)")
   ]
+
+  /*
+  - Autor von LaTeX, entwickelt ab Anfang 1980
+  - LaTeX als Sammlung von Makros zur Erweiterung und Vereinfachung von TeX
+  */
+]
+
+#slide(title: "Die Probleme")[
+  + Riesige Programmgröße
+  + Auswahl an Compilern
+  + Unverständliche Fehler
+]
+
+#slide(title: "Größe des Programms")[
+  #align(center)[
+    #image("img/installation_size_latex.png", width: 60%)
+
+    Verglichen mit `21MB` des Typst-Compilers...
+
+    #image("img/installation_size_typst.png", width: 60%)
+  ]
+
+  /*
+  - Installationsgrößen können stark variieren, 300MB..7GB
+  - unglaublich viele Pakete
+  */
 ]
 
 #slide(title: "Die Vielfalt")[
@@ -75,10 +97,8 @@ $
 + Eine
 + Liste!
 ```
-
-#colbreak()
-#set text(size: 16pt)
-
+    #colbreak()
+    #set text(size: 16pt)
 ```
   error: expected dollar sign
   ┌─ test.typ:5:8
@@ -86,7 +106,7 @@ $
 5 │ + Liste!
   │         ^
 ```
-])
+  ])
 ]
 
 #slide(title: "Beispiel-Fehlermeldung (LaTeX)")[
@@ -163,9 +183,15 @@ Collected error summary (may duplicate other messages):
 ]
 
 #new-section("Die Lösung aller Probleme(?)")
-/*
-- Kurzer Vergleich:
-```tex|latex?
+#slide(title: "Ein kleiner Vergleich")[
+  #set text(size: 20pt)
+
+  #align(horizon, table(columns: (auto, auto, auto),
+    inset: 1em,
+    stroke: none,
+    [LaTeX], [Typst], [Ergebnis],
+
+    align(top, ```latex
 \documentclass{article}
 
 \begin{document}
@@ -176,21 +202,36 @@ Collected error summary (may duplicate other messages):
         \item Liste!
     \end{enumerate}
 \end{document}
-```
-  vs.
-```typst
-- Dies
-- Ist
-- Eine
-- Liste!
-```
-*/
+```),
+
+    align(top, ```typst
++ Dies
++ Ist
++ Eine
++ Liste!
+```), align(top)[
+    + Dies
+    + Ist
+    + Eine
+    + Liste!
+  ]))
+]
 
 #new-section("Die Web-App")
-/*
-- Browser und Website öffnen
-- Anmeldung per tmp-Acc. oder eigene Accounts erstellen
-*/
+#slide(title: "Ab ans Werk!")[
+  Vorteile:
+  - alle Dateien online
+  - verschiedene Projekte erstellbar
+  - guter online Editor
+  - eingebaute Dokumentation
+
+  #link("https://typst.app/")
+
+  /*
+  - Browser und Website öffnen
+  - Anmeldung per tmp-Acc. oder eigene Accounts erstellen
+  */
+]
 
 #new-section("Grundlegende Formatierung")
 /*
