@@ -38,7 +38,7 @@
 
   let west(slide-info, bodies) = {
     if bodies.len() != 1 {
-      panic("default variant of bipartite theme only supports one body per slide")
+      panic("default variant of bipartite theme only supports one body per slide, has "+str(bodies.len())+". / "+repr(slide-info))
     }
     let body = bodies.first()
 
@@ -164,6 +164,25 @@
     )
   }
 
+  let center-split-white(slide-info, bodies) = {
+    if bodies.len() != 2 {
+      panic("center split variant of bipartite theme only supports two bodies per slide")
+    }
+    let body-left = bodies.first()
+    let body-right = bodies.last()
+
+    box(
+      width: 50%, height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+      stroke: none, fill: my-bright,
+      align(right + horizon, text(fill: my-dark, body-left))
+    )
+    box(
+      width: 50%, height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+      stroke: none, fill: my-bright,
+      align(left + horizon, text(fill: my-dark, body-right))
+    )
+  }
+
   let section-slide(slide-info, bodies) = {
     let body-left = bodies.first()
 
@@ -176,6 +195,6 @@
 
   (
     title-slide: title-slide,
-    variants: ( "default": west, "east": east, "center split": center-split, "section-slide": section-slide),
+    variants: ( "default": west, "east": east, "center split": center-split, "section-slide": section-slide, "center split white": center-split-white),
   )
 }
