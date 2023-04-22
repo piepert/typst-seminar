@@ -469,12 +469,21 @@ Project is progressing badly.
 
 #new-section("Abschluss und Weiteres")
 
-#slide(title: "Wer sollte Typst benutzen?")[
-  /*
+#slide(title: "Wer sollte Typst (nicht) benutzen?")[#box[#align(top)[
+  #set list(marker: text(fill: green, emoji.checkmark))
+  Pros:
+  - #strong[steile] Lernkurve
+  - sehr dynamisch
+  - aktive Community
+  - schnelle Kompilierzeit
+  - verständliche Fehlermeldungen
+
+  #set list(marker: text(size: 12pt, emoji.crossmark))
+  Cons:
   - viele Programmierer-Ansätze
-  - sehr komplexe Sachen, bes. was Fußnoten und komplexes Layouting braucht ist (noch) NICHT für Typst geeignet
-  */
-]
+  - komplexes Layouting & Fußnoten schwer umsetzbar
+  - Pure Functions können schwer sein (States, Counter, ...)
+]]]
 
 #slide(title: [Erwartete Neuerungen#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
   #block[#align(top)[
