@@ -4,18 +4,20 @@
 #import "slide_sections.typ": *
 #import "latex_symbol.typ": latex-symbol
 
-#show "LaTeX": [#h(-0.2em)#latex-symbol#h(-0.3em)]
+#show "La!!TeX": [La]+[!TeX]
+#show "La!TeX": [#h(-0.2em)#latex-symbol#h(-0.3em)]
 
 #set heading(numbering: "1.1.1.")
 #set text(lang: "de")
 #show: slides.with(
     authors: "Tristan Pieper",
     email: text(size: 0.75em, "tristan.pieper@uni-rostock.de"),
-    title: "Typst — Hat LaTeX abgedankt?",
+    title: "Typst — Hat La!TeX abgedankt?",
     subtitle: "Eine kurze Einführung in Typst",
     short-title: "Shorter title for slide footer",
     date: "1. Juni 2023",
     theme: bipartite-theme(),
+    typography: (math-font: "New Computer Modern Math")
 )
 
 #set page(footer: text(fill: red, counter(page).display()))
@@ -30,13 +32,13 @@
 - Wer hatte das IP-Modul? → Macht es einfacher
 */
 
-#new-section("Probleme von LaTeX")
+#new-section("Probleme von La!TeX")
 
 #slide(title: "Alles begann mit...")[
   #align(center)[
     #image("img/donald_e_knuth.png", height: 75%)
 
-    Donald E. Knuth #text(size: 0.75em, "(geb. 10. Januar 1938)")
+    Donald E. Knuth#slide-footnote("Foto: Brian Flaherty / The New York Times") #text(size: 0.75em, "(geb. 10. Januar 1938)")
   ]
 
   /*
@@ -50,7 +52,7 @@
   #align(center)[
     #image("img/leslie_lamport.png", height: 75%)
 
-    Leslie Lamport #text(size: 0.75em, "(geb. 7. Februar 1941)")
+    Leslie Lamport#slide-footnote("Foto: Talia Herman / Quanta Magazine") #text(size: 0.75em, "(geb. 7. Februar 1941)")
   ]
 
   /*
@@ -81,7 +83,7 @@
 ]
 
 #slide(title: "Die Vielfalt")[
-  „LaTeX“ ist kein Programm, sondern:
+  „La!TeX“ ist kein Programm, sondern:
   - pdfLa​TeX // Unicode-Charakter mit 0-Breite zwischen "La" und "TeX"
   - LuaTeX
   - XeTeX
@@ -112,10 +114,10 @@ $
   ])
 ]
 
-#slide(title: "Beispiel-Fehlermeldung (LaTeX)")[
+#slide(title: "Beispiel-Fehlermeldung (La!TeX)")[
   #columns(2, [
     #v(2em)
-    LaTeX:
+    La!TeX:
 
     #set text(size: 22pt)
 ```tex
@@ -147,7 +149,7 @@ $
   #align(horizon, table(columns: (auto, auto, auto),
     inset: 1em,
     stroke: none,
-    [LaTeX], [Typst], [Ergebnis],
+    [La!TeX], [Typst], [Ergebnis],
 
     align(top, ```latex
 \documentclass{article}
@@ -197,10 +199,219 @@ $
 - Fett, Kursiv
 - Listen
 - Bilder
+- Set und Show-Regeln
 - Schriftgröße und -farbe ändern
 - Textausrichtung
 - Mathematik (Dokumentation mit Symbolen)
 */
+
+#slide(title: "Überschriften")[#{
+    let code = ```
+// Hier ein Kommentar,
+// er wird ignoriert!
+
+= Überschrift 1!
+== Überschrift 2!
+=== Überschrift 3!
+Text
+
+Neuer Abstatz!
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))), align(top)[
+        #strong[
+          #text(size: 36pt, [6. Überschrift 1!])
+
+          #text(size: 30pt, [6.1. Überschrift 2!])
+
+          #text(size: 24pt, [6.1.1. Überschrift 3!])
+        ]
+
+        Text
+
+        Neuer Absatz!
+      ])
+}]
+
+#slide(title: "Listen")[#{
+    let code = ```
++ Eine numerierte Liste
++ Kann sehr schön sein!
+
+1. So geht sie auch!
+2. Jawohl!
+
+- Und hier nicht-nummeriert!
+- Ganz ohne Nummern!
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+#slide(title: "Schriftart")[#{
+    let code = ```
+#text(font: "Arial", [Hallo Welt!])
+
+#text(font: "Courier New", [Hallo Welt!])
+
+#text(font: "New Computer Modern", [Hallo Welt!])
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Text" + slide-footnote(link("https://typst.app/docs/reference/syntax/")))[#{
+    let code = ```
+*Hallo!* #strong[Hallo!]
+
+_Hallo!_ #emph[Hallo!]
+
+Hallo!#super([Hallo!])
+
+Hallo!#sub([Hallo!])
+
+#text(fill: red, [Hallo rot!])
+
+#text(fill: rgb("#ff00ff"), [Hallo pink!])
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Ausrichtung")[#{
+    let code = ```
+#align(left, [Hallo!])
+#align(center, [Hallo!])
+#align(right, [Hallo!])
+    ```
+
+    table(stroke: none,
+      columns: (1fr, 1fr),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Abstände")[#{
+    let code = ```
+Vertikaler
+#v(2cm)
+Abstand #h(2cm) Horizontaler
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Bilder")[#{
+    let code = ```
+#image(height: 50%, "img/leslie_lamport.png")
+    ```
+
+    table(stroke: none,
+      columns: (auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top + center, v(1em) + text(size: 20pt, image(width: 50%, "img/leslie_lamport.png"))))
+}]
+
+#slide(title: "Tabellen")[#{
+    let code = ```
+#table(
+  columns: (auto, 3cm, auto),
+  [Hallo1!],
+  [2a],
+  [Hallo3!],
+  [Welt1!],
+  [2b],
+  [Welt3!]
+)
+    ```
+
+    table(stroke: none,
+      columns: (1fr, auto),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Mathematik")[#{
+    let code = ```
+
+$ sum_(k=0)^n k = 1 + ... + n $
+
+$ A = pi r^2 $
+
+$ "area" = pi dot.op "radius"^2 $
+
+$ cal(A) :=
+    { x in RR | x "is natural" } $
+
+$ frac(a^2, 2) $
+    ```
+
+    table(stroke: none,
+      columns: (60%, 40%),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, [
+        #set text(font: "New Computer Modern Math")
+        #eval("["+code.text+"]")
+      ])))
+}]
+
+#slide(title: "Set-Regeln")[#{
+    let code = ```
+Hier ist noch die Standard-Schriftart!
+
+#set text(font: "New Computer Modern", fill: blue)
+
+Ab jetzt ist alles vollkommen in der anderen Schriftart und sogar blau!
+
+#set par(first-line-indent: 1.5em)
+
+Ab jetzt wird jede erste Zeile eines Absatzes eingerückt!
+
+Wirklich, versprochen!
+    ```
+
+    table(stroke: none,
+      columns: (1fr, 1fr),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Show-Regeln")[#{
+    let code = ```
+#show heading: set text(navy)
+
+=== Hallo!
+
+==== Welt!
+
+// aus dem offiziellem
+// Typst-Tutorial
+#show "Project": smallcaps
+#show "badly": "great"
+
+We started Project in 2019
+and are still working on it.
+Project is progressing badly.
+    ```
+
+    table(stroke: none,
+      columns: (60%, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
 
 #slide[
   #table(columns: (50%, 50%),
@@ -220,6 +431,14 @@ $
     #image(width: 80%, "img/edk_typst.png")
   ])
 ]
+
+#new-section("Die Typst-Dokumentation...")
+
+#slide[
+  - #link("https://typst.apps/docs") als Nachslagwerk
+  - Dokumentation ist wichtig!
+]
+
 
 #new-section("Eigene Templates und Skripts")
 /*
