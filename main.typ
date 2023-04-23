@@ -280,6 +280,8 @@ Hallo!#sub([Hallo!])
 #text(fill: red, [Hallo rot!])
 
 #text(fill: rgb("#ff00ff"), [Hallo pink!])
+
+#text(fill: rgb("#ff00ff"), smallcaps(strong(emph[Hallo pink!])))
     ```
 
     table(stroke: none,
@@ -316,13 +318,13 @@ Abstand #h(2cm) Horizontaler
 
 #slide(title: "Bilder")[#{
     let code = ```
-#image(height: 50%, "img/leslie_lamport.png")
+#image(height: 50%, "leslie_lamport.png")
     ```
 
     table(stroke: none,
       columns: (auto),
       align(top, text(size: 20pt, raw(lang: "typst", code.text))),
-      align(top + center, v(1em) + text(size: 20pt, image(width: 50%, "img/leslie_lamport.png"))))
+      align(top + center, v(1em) + image(width: 50%, "img/leslie_lamport.png")))
 }]
 
 #slide(title: "Tabellen")[#{
@@ -368,7 +370,7 @@ $ frac(a^2, 2) $
       ])))
 }]
 
-#slide(title: "Set-Regeln")[#{
+#slide(title: "Set-Regeln" + slide-footnote(link("https://typst.app/docs/reference/styling/")))[#{
     let code = ```
 Hier ist noch die Standard-Schriftart!
 
@@ -376,11 +378,11 @@ Hier ist noch die Standard-Schriftart!
 
 Ab jetzt ist alles vollkommen in der anderen Schriftart und sogar blau!
 
-#set par(first-line-indent: 1.5em)
+#set par(first-line-indent: 1.5em, justify: true)
 
-Ab jetzt wird jede erste Zeile eines Absatzes eingerückt!
+Ab jetzt wird jede erste Zeile eines Absatzes eingerückt und Blocksatz!
 
-Wirklich, versprochen!
+Wirklich, versprochen! #lorem(20)
     ```
 
     table(stroke: none,
@@ -389,7 +391,7 @@ Wirklich, versprochen!
       align(top, text(size: 18pt, eval("["+code.text+"]"))))
 }]
 
-#slide(title: "Show-Regeln")[#{
+#slide(title: "Show-Regeln" + slide-footnote(link("https://typst.app/docs/reference/styling/")))[#{
     let code = ```
 #show heading: set text(navy)
 
@@ -445,8 +447,93 @@ Project is progressing badly.
 - Seite bearbeiten, Seitengröße, Header, Footer, ...
 - Skripten (aufpassen: pure functions!)
 */
+#slide(title: "Mehrere Typst-Dateien verwenden")[
+  #set text(size: 20pt)
+  #table(stroke: none,
+    columns: (50%, 50%),
+    image("img/file_list2.png", width: 90%), [
+      `chapter1.typ`:
+      #pad(left: 1em)[```typst
+== Kapitel 1
+#lorem(10)
+      ```]
 
-#new-section("Was Typst noch so alles kann")
+      `chapter2.typ`:
+      #pad(left: 1em)[```typst
+== Kapitel 2
+#lorem(10)
+      ```]
+    ])
+
+  `main.typ`:
+  #pad(left: 1em)[```typst
+= Mein tolles  Buch
+Hier, Kapitel!
+
+#include "chapter1.typ"
+#include "chapter2.typ"
+  ```]
+]
+
+#slide(title: "Eigene Funktionen und Variablen #1")[#{
+    let code = ```
+#let var = 3.14159
+#let double(e) = {
+  return 2*e
+}
+
+$pi$ ist etwa #var! \
+$tau$ ist etwa #double(var)!
+
+$pi approx var$ \
+$tau approx double(var)$
+    ```
+
+    table(stroke: none,
+      columns: (60%, auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Eigene Funktionen und Variablen #2")[#{
+  set text(size: 22pt)
+  let code = ```
+#let names = ("Peter", "Petra", "Josef", "Josefa")
+#let greet(names) = {
+  [Hallo ]
+  names.join(", ", last: " und ")
+  [! #names.len() wundervolle Namen!]
+}
+
+#greet(names)
+    ```
+
+  raw(lang: "typst", code.text)
+
+  v(1em)
+  eval("["+code.text+"]")
+}]
+
+#slide(title: "Funktionen auslagern")[
+  #set text(size: 20pt)
+  #table(stroke: none,
+    columns: (50%, 50%),
+    image("img/file_list.png", width: 90%), [
+      `fullcite.typ` definiert:
+      - `load_bibliography`
+      - `print_bibliography`
+      - `fullcite`
+      - ...
+  ])
+
+
+  ```typst
+#import "fullcite.typ": *
+#import "fullcite.typ": load_bibliography, fullcite
+  ```
+]
+
+#new-section("Typst kann noch mehr!")
 /*
 - Bibliographie
 - Figuren und Referenzen
@@ -454,20 +541,80 @@ Project is progressing badly.
 - Raytracing (https://github.com/elteammate)
 */
 
+#slide(title: "Figuren und Referenzen" + slide-footnote(link("https://typst.app/docs/reference/meta/figure/")))[
+  #align(center, table(stroke: none,
+    columns: (auto),
+
+    align(left, text(size: 18pt, raw(lang: "typst",
+```
+@glacier shows a glacier. Glaciers
+are complex systems.
+
+#figure(
+  image("glacier.jpg", height: 80%),
+  caption: [A curious figure.],
+) <glacier>
+```.text) + v(1em))),
+
+    image(height: 50%, "img/figures_and_references.png")))
+]
+
+#slide(title: "Bibliographie" + slide-footnote(link("https://typst.app/docs/reference/meta/bibliography/")))[
+  #align(center, table(stroke: none,
+    columns: (auto, auto),
+    align(left)[#text(size: 14pt)[`works.bib`: ```bib
+@article{netwok,
+  title={At-scale impact of the {Net Wok}: A culinarically holistic investigation of distributed dumplings},
+  author={Astley, Rick and Morris, Linda},
+  journal={Armenian Journal of Proceedings},
+  volume={61},
+  pages={192--219},
+  year={2020},
+  publisher={Automattic Inc.}
+}
+
+@article{arrgh,
+  title={The Pirate Organization},
+  author={Leeson, Peter T.},
+}
+```]],
+
+    align(left, text(size: 18pt, raw(lang: "typst",
+```
+This was already noted by
+pirates long ago. @arrgh
+
+Multiple sources say ...
+#cite("arrgh", "netwok").
+
+#bibliography("works.bib")
+```.text) + v(1em))) +
+
+    image(height: 50%, "img/bibliography.png")))
+]
+
 #slide(title: "Raytracing")[
   #image("img/raytracer.png")
 
   Voll funktionsfähiger Raytracer für 3D-Rendering.#slide-footnote(link("Autor: https://github.com/elteammate"))
 ]
 
-#new-section("Was noch fehlt")
-/*
-- Fußnoten
-- Paketmanager
-- StackOverflow
-*/
-
 #new-section("Abschluss und Weiteres")
+
+#slide(title: [Was noch fehlt#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
+  - Fußnoten
+  - Paketmanager #text(size: 20pt, fill: rgb("#8a8a8a"))[(kurzfristige Alternative: GitHub)]
+  - StackOverflow #text(size: 20pt, fill: rgb("#8a8a8a"))[(kurzfristige Alternative: Discord)]
+]
+
+#slide(title: [Erwartete Neuerungen#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
+  #block[#align(top)[
+    - Fußnoten (und die komplette Überarbeitung der Layout-Engine)
+    - Paketmanager
+    - Verbesserung des Mathe-Layouts
+    - ...
+  ]]
+]
 
 #slide(title: "Wer sollte Typst (nicht) benutzen?")[#box[#align(top)[
   #set list(marker: text(fill: green, emoji.checkmark))
@@ -484,15 +631,6 @@ Project is progressing badly.
   - komplexes Layouting & Fußnoten schwer umsetzbar
   - Pure Functions können schwer sein (States, Counter, ...)
 ]]]
-
-#slide(title: [Erwartete Neuerungen#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
-  #block[#align(top)[
-    - Fußnoten (und die komplette Überarbeitung der Layout-Engine)
-    - Paketmanager
-    - Verbesserung des Mathe-Layouts
-    - ...
-  ]]
-]
 
 #slide(title: "Weiteres")[
   *Übrigens:* Diese gesamte Präsentation wurde alleine in Typst erstellt.
