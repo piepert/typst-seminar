@@ -183,6 +183,7 @@ $
   - alle Dateien online
   - verschiedene Projekte erstellbar
   - guter online Editor
+  - als Team gleichzeitig an Dateien arbeiten
   - eingebaute Dokumentation
 
   #link("https://typst.app/")
@@ -305,15 +306,15 @@ Hallo!#sub([Hallo!])
 
 #slide(title: "Abstände")[#{
     let code = ```
-Vertikaler
+#align(right, [Vertikaler])
 #v(2cm)
-Abstand #h(2cm) Horizontaler
+Horizontaler #h(2cm) Abstand
     ```
 
     table(stroke: none,
       columns: (1fr, auto),
-      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
-      align(top, text(size: 20pt, eval("["+code.text+"]"))))
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
 }]
 
 #slide(title: "Bilder")[#{
@@ -372,11 +373,11 @@ $ frac(a^2, 2) $
 
 #slide(title: "Set-Regeln" + slide-footnote(link("https://typst.app/docs/reference/styling/")))[#{
     let code = ```
-Hier ist noch die Standard-Schriftart!
+Hier ist noch die Standard-Schriftart! Q
 
 #set text(font: "New Computer Modern", fill: blue)
 
-Ab jetzt ist alles vollkommen in der anderen Schriftart und sogar blau!
+Q Ab jetzt ist alles vollkommen in der anderen Schriftart und sogar blau!
 
 #set par(first-line-indent: 1.5em, justify: true)
 
@@ -501,7 +502,7 @@ $tau approx double(var)$
 #let names = ("Peter", "Petra", "Josef", "Josefa")
 #let greet(names) = {
   [Hallo ]
-  names.join(", ", last: " und ")
+  names.join(last: " und ", ", ")
   [! #names.len() wundervolle Namen!]
 }
 
@@ -519,17 +520,15 @@ $tau approx double(var)$
   #table(stroke: none,
     columns: (50%, 50%),
     image("img/file_list.png", width: 90%), [
-      `fullcite.typ` definiert:
-      - `load_bibliography`
-      - `print_bibliography`
-      - `fullcite`
-      - ...
+      `greet_me.typ` definiert:
+      - `greet(names)`
+      - `double(n)`
   ])
 
 
   ```typst
-#import "fullcite.typ": *
-#import "fullcite.typ": load_bibliography, fullcite
+#import "greet_me.typ": *
+#import "greet_me.typ": greet
   ```
 ]
 
