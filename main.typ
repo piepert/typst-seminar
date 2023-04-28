@@ -223,16 +223,41 @@ Neuer Abstatz!
       columns: (1fr, auto),
       align(top, text(size: 20pt, raw(lang: "typst", code.text))), align(top)[
         #strong[
-          #text(size: 36pt, [6. Überschrift 1!])
+          #text(size: 36pt, [1. Überschrift 1!])
 
-          #text(size: 30pt, [6.1. Überschrift 2!])
+          #text(size: 30pt, [1.1. Überschrift 2!])
 
-          #text(size: 24pt, [6.1.1. Überschrift 3!])
+          #text(size: 24pt, [1.1.1. Überschrift 3!])
         ]
 
         Text
 
         Neuer Absatz!
+      ])
+}]
+
+#slide(title: "Absätze")[#{
+    let code = ```
+= Mein cooler Titel
+In Typst beginnt ein neuer Absatz, sobald im Code eine freie Zeile steht.
+
+Leider sind standardmäßig Absätze linksbündig und nicht Blocksatz. Wie man das ändert, lernen wir gleich!
+    ```
+
+    // Absatz-Abstand mal ein bisschen anpassen, damit man es
+    // sieht, damit es aber nicht wie eine leere Zeile wirkt
+    set block(spacing: 0.75em)
+
+    table(stroke: none,
+      columns: (50%, 50%),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top)[
+          #strong(text(size: 28pt, [\1. Mein cooler Titel]))
+          #set text(size: 20pt)
+
+          In Typst beginnt ein neuer Absatz, sobald im Code eine freie Zeile steht.
+
+          Leider sind standardmäßig Absätze linksbündig und nicht Blocksatz. Wie man das ändert, lernen wir gleich!
       ])
 }]
 
@@ -253,6 +278,7 @@ Neuer Abstatz!
       align(top, text(size: 20pt, raw(lang: "typst", code.text))),
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
+
 #slide(title: "Schriftart")[#{
     let code = ```
 #text(font: "Arial", [Hallo Welt!])
@@ -304,7 +330,7 @@ Hallo!#sub([Hallo!])
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
 
-#slide(title: "Abstände")[#{
+#slide(title: "Abstände #1")[#{
     let code = ```
 #align(right, [Vertikaler])
 #v(2cm)
@@ -314,6 +340,41 @@ Horizontaler #h(2cm) Abstand
     table(stroke: none,
       columns: (1fr, auto),
       align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Abstände (Vertikal)")[#{
+    let code = ```
+Listen-Beispiel von Folie 19 mit vertikalen Abständen.
+
++ Eine numerierte Liste
++ Kann sehr schön sein!
+#v(2em)
+1. So geht sie auch!
+2. Jawohl!
+#v(2em)
+- Und hier nicht-nummeriert!
+- Ganz ohne Nummern!
+    ```
+
+    table(stroke: none,
+      columns: (50%, 50%),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: "Abstände (Horizontal)")[#{
+    let code = ```
++ Gott kommen aufgrund seines vollkommenen Wesens alle vollkommenen Eigenschaften zu.
++ Zu existieren ist vollkommener als nicht zu existieren.
++ Also ist Existenz eine vollkommene Eigenschaft.
++ Also existiert Gott. #h(1fr) QED
+    ```
+
+    table(stroke: none,
+      columns: (auto),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      v(1em),
       align(top, text(size: 18pt, eval("["+code.text+"]"))))
 }]
 
@@ -442,6 +503,58 @@ Project is progressing badly.
   - Dokumentation ist wichtig!
 ]
 
+#slide(title: [Doku-Beispiel: `image`-Funktion])[#{
+    [`image` kann noch ein bisschen was!]
+
+    let code = ```
+    #image("leslie_lamport.png")
+    ```
+
+    table(stroke: none,
+      columns: (auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top + center, v(1em) + [
+        #image("img/leslie_lamport.png")
+      ]))
+}]
+
+#slide(title: [Doku-Beispiel: `image`-Funktion])[#{
+    [`image` kann noch ein bisschen was!]
+
+    let code = ```
+    #image(height: 50%, "leslie_lamport.png")
+    ```
+
+    table(stroke: none,
+      columns: (auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top + center, v(1em) + [
+        #image(height: 50%, "img/leslie_lamport.png")
+      ]))
+}]
+
+#slide(title: [Doku-Beispiel: `image`-Funktion])[#{
+    [`image` kann noch ein bisschen was!]
+
+    let code = ```
+    #image(fit: "stretch", width: 100%, height: 100%, "leslie_lamport.png")
+    ```
+
+    table(stroke: none,
+      columns: (auto),
+      align(top, text(size: 20pt, raw(lang: "typst", code.text))),
+      align(top + center, v(1em) + block(height: 50%, width: 100%, [
+        #image(fit: "stretch", width: 100%, height: 100%, "img/leslie_lamport.png")
+    ])))
+}]
+
+#slide[#image("img/doku_image_1.png", fit: "contain")]
+#slide[#image("img/doku_image_2.png", fit: "contain")]
+#slide[#image("img/doku_image_3.png", fit: "contain")]
+#slide[#image("img/doku_image_4.png", fit: "contain")]
+#slide[#image("img/doku_image_5.png", fit: "contain")]
+#slide[#image("img/doku_image_6.png", fit: "contain")]
+#slide[#image("img/doku_image_7.png", fit: "contain")]
 
 #new-section("Eigene Templates und Skripts")
 /*
