@@ -534,6 +534,8 @@ Project is progressing badly.
 }]
 
 #slide(title: [Doku-Beispiel: `image`-Funktion])[#{
+    // Wie komme ich jetzt an die ganzen Informationen, was
+    // image alles kann? -> Dokumentation!
     [`image` kann noch ein bisschen was!]
 
     let code = ```
