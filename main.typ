@@ -9,6 +9,8 @@
 
 #set heading(numbering: "1.1.1.")
 #set text(lang: "de")
+#show link: set text(blue)
+
 #show: slides.with(
     authors: "Tristan Pieper",
     email: text(size: 0.75em, "tristan.pieper@uni-rostock.de"),
@@ -19,8 +21,6 @@
     theme: bipartite-theme(),
     typography: (math-font: "New Computer Modern Math")
 )
-
-#set page(footer: text(fill: red, counter(page).display()))
 
 #slide[
   #outline(depth: 1)
