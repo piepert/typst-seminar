@@ -735,7 +735,7 @@ Multiple sources say ...
 #slide(title: "Raytracing")[
   #image("img/raytracer.png")
 
-  Voll funktionsfähiger Raytracer für 3D-Rendering.#slide-footnote(link("Autor: https://github.com/elteammate"))
+  Voll funktionsfähiger Raytracer für 3D-Rendering.#slide-footnote([Autor: ] + link("https://github.com/elteammate"))
 ]
 
 #new-section("Abschluss und Weiteres")
