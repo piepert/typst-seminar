@@ -143,6 +143,31 @@ $
 ]
 
 #new-section("Die Lösung aller Probleme(?)")
+#slide(title: "Typst")[
+  #table(stroke: none, inset: 5pt, columns: (40%, 60%),
+    align(horizon)[#block(align(top)[
+      - 2019 Projektstart an TU Berlin
+      - entstanden aus Frustration über LaTeX
+    ])],
+    [
+      #image("img/typst_team.png")
+      #set text(size: 0.65em)
+      Martin Haug (links, Webentwicklung),\
+      Laurenz Mädje (rechts, Compilerentwicklung)
+
+      #set text(size: 0.5em)
+      #link("https://www.tu.berlin/entrepreneurship/startup-support/unsere-startups/container-profile/startups-2023-typst"), (letzter Zugriff: 03.05.2023, 10:13)
+    ]
+  )
+]
+
+#slide(title: "Das Ziel")[
+  _"Während bestehende Lösungen langsam, schwer zu bedienen oder einschränkend sind, ist Typst sorgfältig entworfen, um leicht erlernbar, flexibel und schnell zu sein. Dafür haben wir eine komplett eigene Markupsprache und Textsatzengine von Grund auf entwickelt. Dadurch sind wir in allen Bereichen des Schreib- und Textsatzprozesses innovationsfähig."_
+
+  #set text(size: 0.5em)
+  #link("https://www.tu.berlin/entrepreneurship/startup-support/unsere-startups/container-profile/startups-2023-typst"), (letzter Zugriff: 03.05.2023, 10:13)
+]
+
 #slide(title: "Ein kleiner Vergleich")[
   #set text(size: 20pt)
 
