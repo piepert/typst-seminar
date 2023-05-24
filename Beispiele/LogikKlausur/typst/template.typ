@@ -31,12 +31,12 @@
 
                     for key in dict.keys() {
                         style(s => {
-                            let stars = stack(dir: ltr, .. ($star.filled$,) * dict.at(key))
+                            let stars = stack(dir: ltr, .. (text(size: 16pt)[★],) * dict.at(key))
                             let width = measure(stars, s).width
 
                             place(top + right,
-                                dy: eval(key) - fontsize*0.75,
-                                dx: width + 1em,
+                                dy: eval(key) - fontsize,
+                                dx: width - 2.25em,
                                 stars)
                         })
                     }
@@ -103,66 +103,83 @@
     })
 }
 
-#let point() = {    
+#let point() = {
     locate(loc => {
         let key = repr(loc.position().y)
 
         state("line_points").update(k => {
             let pagenum = str(counter(page).at(loc).first())
+            let pager = if k == none { (:) } else { k }
+            let value = (:)
 
-            if k == none or pagenum not in k {
-                let pager = if k == none {
-                    (:)
-                } else {
-                    k
-                }
-
-                let m = (:)
-                m.insert(key, 1)
-                pager.insert(pagenum, m)
-                pager
-
-            } else if pagenum in k {
-                let stars = k.at(pagenum)
-                let value = if key in stars { stars.at(key) } else { 0 } 
-                stars.insert(key, value+1)
-                k.at(pagenum) = stars
-                k
+            if pagenum not in pager {
+                pager.insert(pagenum, (:))
             }
+
+            value = pager.at(pagenum)
+            value.insert(key, if key in value {
+                value.at(key) + 1
+            } else {
+                1
+            })
+
+            pager.insert(pagenum, value)
+            pager
         })
-
-        /*
-        - state dictionary that maps each y-position (vertical) of the page to a LTR stack of these symbols
-
-        - If, when point is called and the current y-position is not yet in this state dictionary, then you place the first star in the margin.
-
-        - Then subsequent calls to point at the same y-position would find the existing star and append to it.
-        */
-
-        /*
-        for i in range(dict.at(key)) {
-            let amount = i * 10pt
-            place(right, dx: amount + 20pt)[#rect(fill: red, width: 5pt, height: 5pt)]
-            // place(right, dx: amount + 20pt, dy: -1em)[$star.filled$]
-        }
-        */
     })
 
     increase_task_points(1)
 }
 
-#let task(description, points, body) = {
+#let task(description, body, eh) = {
     add_task_task_points()
     counter("tasks").step()
 
+    let taskname = ([Aufgabe ]
+            + counter("tasks").display());
+
     grid(columns: (1fr, auto),
-        gutter: 2em,
-        strong(smallcaps([Aufgabe ]
-            + counter("tasks").display()))
+        gutter: 3em,
+        strong(smallcaps(taskname))
             + [. ]
             + description,
         strong(get_task_points() + [P]))
 
     v(0.5em)
     body
+
+    set text(size: 10pt)
+    table(columns: (100%),
+        inset: 0pt,
+        block(inset: 5pt, fill: black, width: 100%, text(fill: white, [Erwartungshorizont #taskname])),
+        block(inset: 1em,
+            width: 100% - 3.5em, [
+            #box(eh)
+
+            #v(0.5em)
+            #strong[Erreichbare Punkte: #get_task_points()]
+        ]))
+
+    v(1em)
+}
+
+#let conclude(premise, conclusion) = {
+    style(s => {
+        let bottom = none
+        let top = none
+
+        if measure(premise, s).width > measure(conclusion, s).width {
+            bottom = black
+        } else {
+            top = black
+        }
+
+        grid(block(inset: 5pt,
+                stroke: (bottom: bottom, rest: none),
+                premise),
+            block(inset: 5pt,
+                stroke: (top: top, rest: none),
+                conclusion))
+    })
+
 }
