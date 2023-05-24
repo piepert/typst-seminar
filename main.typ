@@ -698,6 +698,12 @@ are complex systems.
     image(height: 50%, "img/figures_and_references.png")))
 ]
 
+#slide(title: "Query-Funktion")[
+  /*
+    - Todo: Query-Funktion erklären
+  */
+]
+
 #slide(title: "Bibliographie" + slide-footnote(link("https://typst.app/docs/reference/meta/bibliography/")))[
   #align(center, table(stroke: none,
     columns: (auto, auto),
@@ -741,21 +747,35 @@ Multiple sources say ...
 #new-section("Abschluss und Weiteres")
 
 #slide(title: [Was noch fehlt#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
-  - Fußnoten
+  - #strike[Fußnoten] (am 20.05.2023 mit v0.4.0 hinzugefügt)
   - Paketmanager #text(size: 20pt, fill: rgb("#8a8a8a"))[(kurzfristige Alternative: GitHub)]
   - StackOverflow #text(size: 20pt, fill: rgb("#8a8a8a"))[(kurzfristige Alternative: Discord)]
 ]
 
 #slide(title: [Erwartete Neuerungen#slide-footnote(link("https://github.com/typst/typst/issues/712"))])[
   #block[#align(top)[
-    - Fußnoten (und die komplette Überarbeitung der Layout-Engine)
+    - die komplette Überarbeitung der Layout-Engine
     - Paketmanager
     - Verbesserung des Mathe-Layouts
+    - HTML Output
     - ...
   ]]
 ]
 
 #slide(title: "Wer sollte Typst (nicht) benutzen?")[#box[#align(top)[
+  // ausbauen und kritische Auseinandersetzung mit Typst, Fragen erläutern:
+  /*
+    Warum sollte ich Typst benutzen, wenn doch eh überall LaTeX läuft?
+      - Henne-Ei-Problem
+      - Können wir uns nicht auch für neue Technologien begeistern, einfach weil wir sie cool finden? Wie soll sich irgendetwas jemals durchsetzen, wenn wir immer nur denken "Ja aber früher haben wir das anders gemacht."?
+
+    LaTeX hat viel mehr Pakete. Typst hat nichtmal TikZ.
+      - Alternativen: mit TikZ SVG generieren und in Typst einbingen, oder GraphViz benutzen
+      - https://github.com/johannes-wolf/typst-canvas als Grundbibliothek
+
+    Allgemein: Henne-Ei-Problem. Kann man nicht auch mal Dinge aus interesse machen? Können wir uns nichtmal auch einfach für neue technologien interessieren? Brauche ich die ganzen "Möglichkeiten", das LaTeX-Monster, wirklich?
+  */
+
   #set list(marker: text(fill: green, emoji.checkmark))
   Pros:
   - #strong[steile] Lernkurve
@@ -767,7 +787,7 @@ Multiple sources say ...
   #set list(marker: text(size: 12pt, emoji.crossmark))
   Cons:
   - viele Programmierer-Ansätze
-  - komplexes Layouting & Fußnoten schwer umsetzbar
+  - komplexes Layouting (keine floating figures)
   - Pure Functions können schwer sein (States, Counter, ...)
 ]]]
 
