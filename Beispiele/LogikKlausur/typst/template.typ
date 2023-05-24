@@ -103,15 +103,14 @@
     })
 }
 
-#let point() = {
+#let point() = {    
     locate(loc => {
         let key = repr(loc.position().y)
-        let dict = state("line_points").final(loc)
 
         state("line_points").update(k => {
             let pagenum = str(counter(page).at(loc).first())
 
-            if k == none or key not in k {
+            if k == none or pagenum not in k {
                 let pager = if k == none {
                     (:)
                 } else {
@@ -123,9 +122,10 @@
                 pager.insert(pagenum, m)
                 pager
 
-            } else if key in k {
+            } else if pagenum in k {
                 let stars = k.at(pagenum)
-                stars.at(key) = stars.at(key) + 1
+                let value = if key in stars { stars.at(key) } else { 0 } 
+                stars.insert(key, value+1)
                 k.at(pagenum) = stars
                 k
             }

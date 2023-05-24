@@ -5,7 +5,7 @@
 
 #show: project.with(date: date, title: title)
 
-#task([Schreiben Sie hinter die folgenden Schemata die Buchstaben der Begriffe, ob das Schema (A) #emph[allgemeingültig], (E) #emph[erfüllbar] und/oder (W) #emph[widersprüchlich ist:]
+#task([Schreiben Sie hinter die folgenden Schemata die Buchstaben der Begriffe, ob das Schema (A) #emph[allgemeingültig], (E) #emph[erfüllbar] und/oder (W) #emph[widersprüchlich] ist:
 
 #set enum(indent: 1em, spacing: 1.5em)
 1. $(p -> p)$
@@ -28,6 +28,6 @@
 
 #lorem(14)
 #point() #point() #point()
-#lorem(200)
+#lorem(200) #point()
 
 #locate(loc => state("line_points").final(loc))
