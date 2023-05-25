@@ -49,6 +49,7 @@
 }
 
 #let tasks_points_state = state("tasks_points")
+#let additional_tasks_points_state = state("additional_tasks_points")
 
 #let init_task_points() = {
     tasks_points_state.update(k => {
@@ -58,16 +59,32 @@
 
         k
     })
-}
 
-#let increase_task_points(p) = {
-    init_task_points()
-
-    tasks_points_state.update(k => {
-        k.points.at(k.tasks) += p
+    additional_tasks_points_state.update(k => {
+        if k == none {
+            return (points: (0,), tasks: 0)
+        }
 
         k
     })
+}
+
+#let increase_task_points(additional, p) = {
+    init_task_points()
+
+    if additional {
+        additional_tasks_points_state.update(k => {
+            k.points.at(k.tasks) += p
+
+            k
+        })
+    } else {
+        tasks_points_state.update(k => {
+            k.points.at(k.tasks) += p
+
+            k
+        })
+    }
 }
 
 #let add_task_task_points() = {
@@ -81,29 +98,37 @@
     })
 }
 
-#let get_task_points(payload: none) = {
-    init_task_points()
-
-    locate(loc => {
-        if payload != none {
-            payload(tasks_points_state
-                .at(loc)
-                .points
-                .at(tasks_points_state
-                    .at(loc)
-                    .tasks))
-        } else {
-            str(tasks_points_state
-                .final(loc)
-                .points
-                .at(tasks_points_state
-                    .at(loc)
-                    .tasks))
-        }
-    })
+#let get_all_points(location) = {
+    (tasks_points_state.final(location)
+        .points
+        .sum(), 
+    additional_tasks_points_state.final(location)
+        .points
+        .sum())
 }
 
-#let point() = {
+#let get_task_points(loc, additional: false, payload: none) = {
+    init_task_points()
+    let point_state = if additional { additional_tasks_points_state } else { tasks_points_state }
+
+    if payload != none {
+        payload(point_state
+            .at(loc)
+            .points
+            .at(point_state
+                .at(loc)
+                .tasks))
+    } else {
+        str(point_state
+            .final(loc)
+            .points
+            .at(point_state
+                .at(loc)
+                .tasks))
+    }
+}
+
+#let point(additional: false) = {
     locate(loc => {
         let key = repr(loc.position().y)
 
@@ -128,10 +153,10 @@
         })
     })
 
-    increase_task_points(1)
+    increase_task_points(additional, 1)
 }
 
-#let task(description, body, eh) = {
+#let task(additional: false, description, body, eh) = {
     add_task_task_points()
     counter("tasks").step()
 
@@ -143,22 +168,23 @@
         strong(smallcaps(taskname))
             + [. ]
             + description,
-        strong(get_task_points() + [P]))
+        strong(locate(loc => get_task_points(loc)) + [P]))
 
     v(0.5em)
     body
 
     set text(size: 10pt)
-    table(columns: (100%),
-        inset: 0pt,
-        block(inset: 5pt, fill: black, width: 100%, text(fill: white, [Erwartungshorizont #taskname])),
+    block(stroke: black, {
+        grid(block(inset: 5pt, fill: black, width: 100%, text(fill: white, [Erwartungshorizont #taskname])),
+
         block(inset: 1em,
             width: 100% - 3.5em, [
-            #box(eh)
+            #block(eh)
 
             #v(0.5em)
-            #strong[Erreichbare Punkte: #get_task_points()]
+            #strong[Erreichbare Punkte: #locate(loc => get_task_points(loc))]
         ]))
+    })
 
     v(1em)
 }
@@ -167,18 +193,20 @@
     style(s => {
         let bottom = none
         let top = none
+        let premise_width = measure(premise, s).width
+        let conclusion_width = measure(conclusion, s).width
+        let max_width = premise_width
 
-        if measure(premise, s).width > measure(conclusion, s).width {
-            bottom = black
-        } else {
-            top = black
+        if premise_width < conclusion_width {
+            max_width = conclusion_width
         }
 
         grid(block(inset: 5pt,
-                stroke: (bottom: bottom, rest: none),
+                width: max_width,
+                stroke: (bottom: black, rest: none),
                 premise),
             block(inset: 5pt,
-                stroke: (top: top, rest: none),
+                width: max_width,
                 conclusion))
     })
 
