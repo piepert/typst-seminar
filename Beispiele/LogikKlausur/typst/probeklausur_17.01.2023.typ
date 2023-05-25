@@ -107,8 +107,8 @@ Zwei Wörter $⌜alpha⌝$ und $⌜beta⌝$ sind genau dann wahr #point(), wenn 
 
     1. konträr #point()
     2. kontradiktorisch #point()
-    2. subkonträr #point()
-    3. Es regnet nicht immer. #point()
+    3. subkonträr #point()
+    4. Es regnet nicht immer. #point()
 ]
 
 #task(additional: true)[
@@ -122,7 +122,7 @@ Zwei Wörter $⌜alpha⌝$ und $⌜beta⌝$ sind genau dann wahr #point(), wenn 
 
     #show math.equation: it => align(center, it)
     #conclude[$p -> r #point(additional: true) \ p or q \ not q$][$r$]
-    
+
     #show math.equation: it => it
     #table(columns: (auto,)*7,
         inset: 3pt,
