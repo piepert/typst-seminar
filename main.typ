@@ -11,13 +11,27 @@
 #set text(lang: "de")
 #show link: set text(blue)
 
+#let task(description, solution) = [
+  #slide[
+    #counter("main_task_counter").step()
+    #text(size: 1.25em, strong([Aufgabe ]+locate(loc => counter("main_task_counter").at(loc).first())))
+
+    #par(justify: true, description)
+  ]
+
+  #slide[
+    #text(size: 1.25em, strong([Lösung ]+locate(loc => counter("main_task_counter").at(loc).first())))
+
+    #solution]
+]
+
 #show: slides.with(
     authors: "Tristan Pieper",
     email: text(size: 0.75em, "tristan.pieper@uni-rostock.de"),
-    title: "Typst — Hat La!TeX abgedankt?",
+    title: "Typst — Hat La!TeX ausgedient?",
     subtitle: "Eine kurze Einführung in Typst",
     short-title: "Shorter title for slide footer",
-    date: "1. Juni 2023",
+    date: "2. Juni 2023",
     theme: bipartite-theme(),
     typography: (math-font: "New Computer Modern Math")
 )
@@ -96,20 +110,16 @@
   #columns(2, [
     Typst:
 ```typst
-$
-+ Dies
-+ Ist
-+ Eine
-+ Liste!
+$a+b
 ```
     #colbreak()
     #set text(size: 16pt)
 ```
   error: expected dollar sign
-  ┌─ test.typ:5:8
+  ┌─ test.typ:1:5
   │
-5 │ + Liste!
-  │         ^
+1 │ $a+b
+  │     ^
 ```
   ])
 ]
@@ -124,14 +134,7 @@ $
 \documentclass{article}
 
 \begin{document}
-    $
-
-    \begin{enumerate}
-        \item Dies
-        \item Ist
-        \item Eine
-        \item Liste!
-    \end{enumerate}
+    $a+b
 \end{document}
 ```
 
@@ -140,6 +143,36 @@ $
 
 #raw(read("latex_error.log"))
   ])
+]
+
+#slide(title: "Mehr Beispiel-Fehlermeldung")[
+  #set text(size: 18pt)
+  #table(columns: (auto, auto),
+    inset: 0.5em,
+    [Typst], [La!TeX],
+    ```typ
+#set par(leading: [Hello])
+                  ^^^^^^^
+expected integer, found content
+  ```,
+
+    ```latex
+\baselineskip=Hello
+Missing number, treated as zero.
+Illegal unit of measure (pt inserted).
+  ```,
+    ```typ
+#heading()
+        ^^
+missing argument: body
+  ```,
+    ```latex
+\section
+Missing \endcsname inserted.
+Missing \endcsname inserted.
+...
+  ```,
+  )
 ]
 
 #new-section("Die Lösung aller Probleme(?)")
@@ -355,6 +388,20 @@ Hallo!#sub([Hallo!])
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
 
+#task[Wie realisiert man das Folgende in Typst?
+
+#block(stroke: black,
+  inset: 1em, [
+  #align(center, emph[Ein Brief an Lorem])
+  #lorem(20)
+])
+][
+  ```typ
+#align(center, emph[Ein Brief an Lorem])
+#lorem(20)
+  ```
+]
+
 #slide(title: "Abstände #1")[#{
     let code = ```
 #align(right, [Vertikaler])
@@ -370,7 +417,7 @@ Horizontaler #h(2cm) Abstand
 
 #slide(title: "Abstände (Vertikal)")[#{
     let code = ```
-Listen-Beispiel von Folie 19 mit vertikalen Abständen.
+Listen-Beispiel von Folie 21 mit vertikalen Abständen.
 
 + Eine numerierte Liste
 + Kann sehr schön sein!
@@ -412,6 +459,29 @@ Listen-Beispiel von Folie 19 mit vertikalen Abständen.
       columns: (auto),
       align(top, text(size: 20pt, raw(lang: "typst", code.text))),
       align(top + center, v(1em) + image(width: 50%, "img/leslie_lamport.png")))
+}]
+
+#slide(title: [`#block()` und `#box()`])[#{
+    let code = ```
+Das lässt sich mit `#block` machen: #block(stroke: black, inset: 0.5em, [ `#block()` erzeugt einen Zeilenumbruch und lässt sich über Seiten brechen. Es hat viele optionale Argumente.])
+So sieht's aus.
+    ```
+
+    table(stroke: none,
+      columns: (auto, auto),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
+}]
+
+#slide(title: [`#block()` und `#box()`])[#{
+    let code = ```
+Hingegen: #box(stroke: black, inset: 2pt, [`#box()`]) erzeugt #box(stroke: (bottom: black), inset: 2pt, [keinen]) Zeilenumbruch und lässt sich #box(stroke: (bottom: black), inset: 2pt, [nicht]) über Seiten brechen. Man kann damit aber Dinge zum Beispiel umrahmen. Zum Unterstreichen sollte man aber eher #underline[`#underline`] benutzen.
+    ```
+
+    table(stroke: none,
+      columns: (auto, auto),
+      align(top, text(size: 18pt, raw(lang: "typst", code.text))),
+      align(top, text(size: 18pt, eval("["+code.text+"]"))))
 }]
 
 #slide(title: "Tabellen")[#{
@@ -457,6 +527,21 @@ $ frac(a^2, 2) $
       ])))
 }]
 
+#task[Wie realisiert man das Folgende in Typst?
+
+#table(columns: (auto, auto),
+  strong[Formel], strong[Zugeschrieben],
+  $a^2 + b^2 = c^2$, [Pythagoras],
+  $c <= a + b$, [Unbekannt])
+][
+```typ
+#table(columns: (auto, auto),
+  strong[Formel], strong[Zugeschrieben],
+  $a^2 + b^2 = c^2$, [Pythagoras],
+  $c <= a + b$, [Unbekannt])
+```
+]
+
 #slide(title: "Set-Regeln" + slide-footnote(link("https://typst.app/docs/reference/styling/")))[#{
     let code = ```
 Hier ist noch die Standard-Schriftart! Q
@@ -501,6 +586,23 @@ Project is progressing badly.
       align(top, text(size: 20pt, raw(lang: "typst", code.text))),
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
+
+#task[Wie realisiert man das Folgende in Typst?
+
+#block(inset: 1em, stroke: black, [
+  #set par(justify: true)
+  #show "Typst": strong
+
+  In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _#lorem(20)_
+])
+][
+```typ
+#set par(justify: true)
+#show "Typst": strong
+
+In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _#lorem(20)_
+```
+]
 
 #slide[
   #table(columns: (50%, 50%),
@@ -582,6 +684,40 @@ Project is progressing badly.
 #slide[#image("img/doku_image_5.png", fit: "contain")]
 #slide[#image("img/doku_image_6.png", fit: "contain")]
 #slide[#image("img/doku_image_7.png", fit: "contain")]
+
+#task[Welcher Parameter kann durch eine `set`-Regel wie verändert werden, damit man eine nicht-nummerierte Listen wie folgt formatieren kann? Die Dokumentation hilft!
+
+#block(inset: 1em, width: 100%, stroke: black, [
+  #set list(marker: ">")
+  - Element 1
+  - Element 2
+  - Element 3
+])
+][
+```typ
+#set list(marker: ">")
+- Element 1
+- Element 2
+- Element 3
+```
+]
+
+#task[Welcher Parameter kann durch eine `set`-Regel wie verändert werden, damit man eine nummerierte Listen (`#enum()`) wie folgt formatieren kann? Die Dokumentation hilft!
+
+#block(inset: 1em, width: 100%, stroke: black, [
+  #set enum(numbering: "I.")
+  + Element 1
+  + Element 2
+  + Element 3
+])
+][
+```typ
+#set enum(numbering: "I.")
++ Element 1
++ Element 2
++ Element 3
+```
+]
 
 #new-section("Eigene Templates und Skripts")
 /*
@@ -672,6 +808,43 @@ $tau approx double(var)$
   ```
 ]
 
+#task[Es soll eine Funktion erstellt werden, die zwei Zahlen addiert und das Ergebnis #text(red, [rot]) und #strong[fett] formatiert. Etwa so:
+
+#let add(a, b) = strong(text(red, [#(a+b)]))
+```typ
+#add(20, 40)
+```
+
+#add(20, 40)
+][
+  #set text(18pt)
+  #grid(columns: (auto, auto),
+    gutter: 1em,
+    [Viele Möglichkeiten:
+
+```typ
+#let add(a, b) = strong(text(red, [#(a+b)]))
+#add(20, 40)
+```
+
+oder mit `#str()` Zahlen zu Strings machen:
+
+```typ
+#let add(a, b) = strong(text(red, str(a+b)))
+#add(20, 40)
+```], align(top)[oder mit Klammern:
+
+```typ
+#let add(a, b) = {
+  let result = a+b
+  strong(text(red, str(result)))
+}
+
+#add(20, 40)
+```
+  ])
+]
+
 #new-section("Typst kann noch mehr!")
 /*
 - Bibliographie
@@ -696,12 +869,6 @@ are complex systems.
 ```.text) + v(1em))),
 
     image(height: 50%, "img/figures_and_references.png")))
-]
-
-#slide(title: "Query-Funktion")[
-  /*
-    - Todo: Query-Funktion erklären
-  */
 ]
 
 #slide(title: "Bibliographie" + slide-footnote(link("https://typst.app/docs/reference/meta/bibliography/")))[
@@ -763,7 +930,7 @@ Multiple sources say ...
 ]
 
 #slide(title: "Wer sollte Typst (nicht) benutzen?")[#box[#align(top)[
-  // ausbauen und kritische Auseinandersetzung mit Typst, Fragen erläutern:
+  // Todo: ausbauen und kritische Auseinandersetzung mit Typst, Fragen erläutern:
   /*
     Warum sollte ich Typst benutzen, wenn doch eh überall LaTeX läuft?
       - Henne-Ei-Problem
@@ -776,25 +943,31 @@ Multiple sources say ...
     Allgemein: Henne-Ei-Problem. Kann man nicht auch mal Dinge aus interesse machen? Können wir uns nichtmal auch einfach für neue technologien interessieren? Brauche ich die ganzen "Möglichkeiten", das LaTeX-Monster, wirklich?
   */
 
+  #set text(size: 20pt)
   #set list(marker: text(fill: green, emoji.checkmark))
-  Pros:
+  #underline[*Pros:*]
   - #strong[steile] Lernkurve
+  - viele Programmierer-Ansätze
   - sehr dynamisch
   - aktive Community
   - schnelle Kompilierzeit
   - verständliche Fehlermeldungen
 
   #set list(marker: text(size: 12pt, emoji.crossmark))
-  Cons:
+  #underline[*Cons:*]
   - viele Programmierer-Ansätze
-  - komplexes Layouting (keine floating figures)
+  - komplexes Layouting (keine Floating Figures)
   - Pure Functions können schwer sein (States, Counter, ...)
+  - bisher keine Unterstützung durch große Journals
+  - kein zentrales Paketmanagement
+
+  #emph[(Stand: 25.05.2023)]
 ]]]
 
 #slide(title: "Weiteres")[
+  #set text(size: 20pt)
   *Übrigens:* Diese gesamte Präsentation wurde alleine in Typst erstellt.
 
-  #set text(size: 20pt)
   Typst Dokumentation:
   - https://typst.app/docs/
 
@@ -806,4 +979,7 @@ Multiple sources say ...
 
   Code für diese Präsentation und weitere Beipsiele:
   - https://github.com/survari/typst-seminar
+
+  Masterarbeit von Laurenz Mädje über Typst:
+  - https://www.user.tu-berlin.de/laurmaedje/programmable-markup-language-for-typesetting.pdf
 ]
