@@ -177,21 +177,28 @@ Missing \endcsname inserted.
 
 #new-section("Die Lösung aller Probleme(?)")
 #slide(title: "Typst")[
-  #table(stroke: none, inset: 5pt, columns: (40%, 60%),
-    align(horizon)[#block(align(top)[
-      - 2019 Projektstart an TU Berlin
-      - entstanden aus Frustration über LaTeX
-    ])],
-    [
-      #image("img/typst_team.png")
-      #set text(size: 0.65em)
-      Martin Haug (links, Webentwicklung),\
-      Laurenz Mädje (rechts, Compilerentwicklung)
+  #align(center, block(width: 60%)[
+    #set text(size: 0.65em)
 
-      #set text(size: 0.5em)
-      #link("https://www.tu.berlin/entrepreneurship/startup-support/unsere-startups/container-profile/startups-2023-typst"), (letzter Zugriff: 03.05.2023, 10:13)
-    ]
-  )
+    #grid(columns: (auto, auto),
+      gutter: 1em,
+      [ #image(height: 40%, width: auto, "img/martin_haug.png")
+        Martin Haug\
+        (Webentwicklung)
+      ],
+      [ #image(height: 40%, width: auto, "img/laurenz_maedje.png")
+        Laurenz Mädje\
+        (Compilerentwicklung)
+      ])
+
+    #set text(size: 0.5em)
+    #link("https://www.tu.berlin/entrepreneurship/startup-support/unsere-startups/container-profile/startups-2023-typst"), (letzter Zugriff: 03.05.2023, 10:13)
+  ])
+
+  #align(horizon)[#block(align(top)[
+    - 2019 Projektstart an TU Berlin
+    - entstanden aus Frustration über LaTeX
+  ])]
 ]
 
 #slide(title: "Das Ziel")[
