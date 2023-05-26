@@ -191,8 +191,8 @@ Missing \endcsname inserted.
         (Compilerentwicklung)
       ])
 
-    #set text(size: 0.5em)
-    #link("https://www.tu.berlin/entrepreneurship/startup-support/unsere-startups/container-profile/startups-2023-typst"), (letzter Zugriff: 03.05.2023, 10:13)
+    #set text(size: 0.75em)
+    #link("https://typst.app/about/"), (letzter Zugriff: 26.05.2023, 10:16)
   ])
 
   #align(horizon)[#block(align(top)[
