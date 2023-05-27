@@ -1031,10 +1031,10 @@ Multiple sources say ...
   #set list(marker: text(fill: green, emoji.checkmark))
   #underline[*Pros:*]
   - #strong[steile] Lernkurve
-  - viele Programmierer-Ansätze
-  - sehr dynamisch
+  - viele Programmierer-Ansätze, extrem einfach erweiterbar
   - aktive Community
   - schnelle Kompilierzeit
+  - online IDE
   - verständliche Fehlermeldungen
 
   #set list(marker: text(fill: red, [✗]))
