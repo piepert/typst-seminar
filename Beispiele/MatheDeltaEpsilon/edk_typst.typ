@@ -1,4 +1,4 @@
-#set page(margin: 2cm)
+#set page(margin: 0.5cm, width: 22cm, height: 5.5cm)
 #set text(size: 14pt, font: "New Computer Modern")
 #set par(justify: true)
 

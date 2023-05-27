@@ -42,56 +42,61 @@
     }
     let body = bodies.first()
 
-    box(
-      height: 100% - 1em, outset: 0em, baseline: 0em,
-      stroke: none, fill: my-dark,
+    style(s => {
+      let footer = box(width: 100%, height: 1em, stroke: my-dark, fill: my-bright,
+        {
+          box(
+            width: if "title" in slide-info.keys() { 30% } else { 10% },
+            height: 100%, outset: 0em, stroke: none, fill: my-dark, [])
+
+          box(
+            width: if "title" in slide-info.keys() { 70% } else { 90% },
+            height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+            stroke: none, fill: my-bright,
+            align(left + horizon, text(fill: my-dark, size: 0.6em,
+              [
+                #locate(loc => {
+                  let s = state("current_slide_section").at(loc)
+
+                  if s != none {
+                    s
+
+                    if state("slide_footnotes").at(loc) != none and state("slide_footnotes").at(loc).len() > 0 {
+                      h(0.5em)
+                      sym.dot.c
+                      h(0.5em)
+                    }
+                  }
+                })
+                #gen-footnotes()
+                #h(1fr)
+                #counter(slide_footnote_counter).display() / #locate(loc => counter(slide_footnote_counter).final(loc).at(0))]))
+          )
+      })
 
       box(
-        width: if "title" in slide-info.keys() { 30% } else { 10% },
-
-        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+        height: 100% - measure(footer, s).height, outset: 0em, baseline: 0em,
         stroke: none, fill: my-dark,
-        align( left + horizon, displayed-title(slide-info) )
-      ) +
-      box(
-        width: if "title" in slide-info.keys() { 70% } else { 90% },
 
-        height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
-        stroke: none, fill: my-bright,
-        align(left + horizon, text(fill: my-dark, body))
-      )
-    )
-
-    v(0em, weak: true)
-    box(width: 100%, height: 1em, stroke: my-dark, fill: my-bright,
-      {
         box(
           width: if "title" in slide-info.keys() { 30% } else { 10% },
-          height: 100%, outset: 0em, stroke: none, fill: my-dark, [])
 
+          height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
+          stroke: none, fill: my-dark,
+          align( left + horizon, displayed-title(slide-info) )
+        ) +
         box(
           width: if "title" in slide-info.keys() { 70% } else { 90% },
+
           height: 100%, outset: 0em, inset: (x: 1em), baseline: 0em,
           stroke: none, fill: my-bright,
-          align(left + horizon, text(fill: my-dark, size: 0.6em,
-            [
-              #locate(loc => {
-                let s = state("current_slide_section").at(loc)
-
-                if s != none {
-                  s
-
-                  if state("slide_footnotes").at(loc) != none and state("slide_footnotes").at(loc).len() > 0 {
-                    h(0.5em)
-                    sym.dot.c
-                    h(0.5em)
-                  }
-                }
-              })
-              #gen-footnotes()
-              #h(1fr)
-              #counter(slide_footnote_counter).display() / #locate(loc => counter(slide_footnote_counter).final(loc).at(0))]))
+          align(left + horizon, text(fill: my-dark, body))
         )
+      )
+
+      v(0em, weak: true)
+
+      footer
     })
   }
 

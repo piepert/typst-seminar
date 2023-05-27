@@ -173,6 +173,9 @@ Missing \endcsname inserted.
 ...
   ```,
   )
+
+  #set text(size: 12pt)
+  (aus: Mädje, Laurenz: #emph["Typst -- A Programmable Markup Language for Typesetting."] Masterarbeit an der TU Berlin, 2022.)
 ]
 
 #new-section("Die Lösung aller Probleme(?)")
@@ -359,11 +362,44 @@ Leider sind standardmäßig Absätze linksbündig und nicht Blocksatz. Wie man d
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
 
+#slide(title: "Content, Strings, Scripts")[
+  #set text(size: 20pt)
+  - zwei Arten von Inhalten in Typst:
+    - Content in `[...]`
+    - Scripts in `{...}`
+    - von Content zu Script mit `#`
+
+  - jedes Dokument ist grundlegend Content
+  #v(1em)
+
+  #table(columns: (50%, 50%),
+    stroke: none,
+    ```typ
+#strong([Hier ist Content in Script.])
+
+#{
+  strong([Fett!])
+  [Auch hier ist Content in Script!]
+}
+
+#{ 3/4 }
+    ```, align(top)[
+#strong([Hier ist Content.])
+
+#{
+  strong([Fett!])
+  [Auch hier ist Content in Script!]
+}
+
+#{ 3/4 }
+    ])
+]
+
 #slide(title: "Text" + slide-footnote(link("https://typst.app/docs/reference/syntax/")))[#{
     let code = ```
-*Hallo!* #strong[Hallo!]
+*Hallo!* #strong([Hallo!])
 
-_Hallo!_ #emph[Hallo!]
+_Hallo!_ #emph([Hallo!])
 
 Hallo!#super([Hallo!])
 
@@ -373,7 +409,7 @@ Hallo!#sub([Hallo!])
 
 #text(fill: rgb("#ff00ff"), [Hallo pink!])
 
-#text(fill: rgb("#ff00ff"), smallcaps(strong(emph[Hallo pink!])))
+#text(fill: rgb("#ff00ff"), strong([Hallo pink!]))
     ```
 
     table(stroke: none,
@@ -387,10 +423,11 @@ Hallo!#sub([Hallo!])
 #align(left, [Hallo!])
 #align(center, [Hallo!])
 #align(right, [Hallo!])
+#align(right, strong([Hallo!]))
     ```
 
     table(stroke: none,
-      columns: (1fr, 1fr),
+      columns: (60%, 1fr),
       align(top, text(size: 20pt, raw(lang: "typst", code.text))),
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
@@ -625,15 +662,15 @@ In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Ty
 
 #slide[
   #align(center, [
-    #image(width: 80%, "img/edk_latex.png")
-    #image(width: 80%, "img/edk_typst.png")
+    #image(width: 90%, "Beispiele/MatheDeltaEpsilon/edk_latex.svg")
+    #image(width: 90%, "Beispiele/MatheDeltaEpsilon/edk_typst.svg")
   ])
 ]
 
 #new-section("Die Typst-Dokumentation...")
 
 #slide[
-  - #link("https://typst.apps/docs") als Nachslagwerk
+  - #link("https://typst.apps/docs") als Nachschlagwerk
   - Dokumentation ist wichtig!
 ]
 
@@ -689,24 +726,13 @@ In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Ty
 #slide[#image("img/doku_image_3.png", fit: "contain")]
 #slide[#image("img/doku_image_4.png", fit: "contain")]
 #slide[#image("img/doku_image_5.png", fit: "contain")]
-#slide[#image("img/doku_image_6.png", fit: "contain")]
-#slide[#image("img/doku_image_7.png", fit: "contain")]
-
-#task[Welcher Parameter kann durch eine `set`-Regel wie verändert werden, damit man eine nicht-nummerierte Listen wie folgt formatieren kann? Die Dokumentation hilft!
-
-#block(inset: 1em, width: 100%, stroke: black, [
-  #set list(marker: ">")
-  - Element 1
-  - Element 2
-  - Element 3
-])
-][
-```typ
-#set list(marker: ">")
-- Element 1
-- Element 2
-- Element 3
-```
+#slide[
+  Beispiel bei `#enum()`:
+  #image("img/doku_image_6.png", fit: "contain")
+]
+#slide[
+  Beispiel bei `#enum()`:
+  #image("img/doku_image_7.png", height: 80%)
 ]
 
 #task[Welcher Parameter kann durch eine `set`-Regel wie verändert werden, damit man eine nummerierte Listen (`#enum()`) wie folgt formatieren kann? Die Dokumentation hilft!
@@ -726,38 +752,57 @@ In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Ty
 ```
 ]
 
+#task[Welcher Parameter kann durch eine `set`-Regel wie verändert werden, damit man eine nicht-nummerierte Listen wie folgt formatieren kann? Die Dokumentation hilft!
+
+#block(inset: 1em, width: 100%, stroke: black, [
+  #set list(marker: ">")
+  - Element 1
+  - Element 2
+  - Element 3
+])
+][
+```typ
+#set list(marker: ">")
+- Element 1
+- Element 2
+- Element 3
+```
+]
+
 #new-section("Eigene Templates und Skripts")
 /*
 - Seite bearbeiten, Seitengröße, Header, Footer, ...
 - Skripten (aufpassen: pure functions!)
 */
-#slide(title: "Mehrere Typst-Dateien verwenden")[
-  #set text(size: 20pt)
-  #table(stroke: none,
-    columns: (50%, 50%),
-    image("img/file_list2.png", width: 90%), [
-      `chapter1.typ`:
-      #pad(left: 1em)[```typst
-== Kapitel 1
-#lorem(10)
-      ```]
+// Irrelevant, kann man nachschlagen:
+// ----------------------------------
+// #slide(title: "Mehrere Typst-Dateien verwenden")[
+//   #set text(size: 20pt)
+//   #table(stroke: none,
+//     columns: (50%, 50%),
+//     image("img/file_list2.png", width: 90%), [
+//       `chapter1.typ`:
+//       #pad(left: 1em)[```typst
+// == Kapitel 1
+// #lorem(10)
+//       ```]
 
-      `chapter2.typ`:
-      #pad(left: 1em)[```typst
-== Kapitel 2
-#lorem(10)
-      ```]
-    ])
+//       `chapter2.typ`:
+//       #pad(left: 1em)[```typst
+// == Kapitel 2
+// #lorem(10)
+//       ```]
+//     ])
 
-  `main.typ`:
-  #pad(left: 1em)[```typst
-= Mein tolles  Buch
-Hier, Kapitel!
+//   `main.typ`:
+//   #pad(left: 1em)[```typst
+// = Mein tolles  Buch
+// Hier, Kapitel!
 
-#include "chapter1.typ"
-#include "chapter2.typ"
-  ```]
-]
+// #include "chapter1.typ"
+// #include "chapter2.typ"
+//   ```]
+// ]
 
 #slide(title: "Eigene Funktionen und Variablen #1")[#{
     let code = ```
@@ -779,7 +824,37 @@ $tau approx double(var)$
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
 
-#slide(title: "Eigene Funktionen und Variablen #2")[#{
+#slide(title: "Eigene Funktionen und Variablen #2")[
+  Eine Einschränkung: wir arbeiten mit #emph[Pure Functions].
+
+  #{
+    let code = ```
+#let var = 2
+#let change_var(new_v) = {
+  var = new_v
+  return var
+}
+
+#change_var(100)
+    ```
+
+    table(stroke: none,
+      columns: (50%, auto),
+
+      align(top, text(size: 18pt, [Folgendes geht nicht:] + par(raw(lang: "typst", code.text)))),
+
+      align(top, text(size: 18pt, [
+        Fehler:
+```typc
+#let change_var(new_v) = {
+  var = new_v
+  ``` ```
+  ^^^
+variables from outside the function are read-only and cannot be modified
+```])))
+}]
+
+#slide(title: "Eigene Funktionen und Variablen #3")[#{
   set text(size: 22pt)
   let code = ```
 #let names = ("Peter", "Petra", "Josef", "Josefa")
@@ -798,22 +873,24 @@ $tau approx double(var)$
   eval("["+code.text+"]")
 }]
 
-#slide(title: "Funktionen auslagern")[
-  #set text(size: 20pt)
-  #table(stroke: none,
-    columns: (50%, 50%),
-    image("img/file_list.png", width: 90%), [
-      `greet_me.typ` definiert:
-      - `greet(names)`
-      - `double(n)`
-  ])
+// Kann man auch nachschlagen:
+// ---------------------------
+// #slide(title: "Funktionen auslagern")[
+//   #set text(size: 20pt)
+//   #table(stroke: none,
+//     columns: (50%, 50%),
+//     image("img/file_list.png", width: 90%), [
+//       `greet_me.typ` definiert:
+//       - `greet(names)`
+//       - `double(n)`
+//   ])
 
 
-  ```typst
-#import "greet_me.typ": *
-#import "greet_me.typ": greet
-  ```
-]
+//   ```typst
+// #import "greet_me.typ": *
+// #import "greet_me.typ": greet
+//   ```
+// ]
 
 #task[Es soll eine Funktion erstellt werden, die zwei Zahlen addiert und das Ergebnis #text(red, [rot]) und #strong[fett] formatiert. Etwa so:
 
@@ -960,7 +1037,7 @@ Multiple sources say ...
   - schnelle Kompilierzeit
   - verständliche Fehlermeldungen
 
-  #set list(marker: text(size: 12pt, emoji.crossmark))
+  #set list(marker: text(fill: red, [✗]))
   #underline[*Cons:*]
   - viele Programmierer-Ansätze
   - komplexes Layouting (keine Floating Figures)
@@ -975,18 +1052,15 @@ Multiple sources say ...
   #set text(size: 20pt)
   *Übrigens:* Diese gesamte Präsentation wurde alleine in Typst erstellt.
 
-  Typst Dokumentation:
-  - https://typst.app/docs/
+  - Typst Dokumentation: https://typst.app/docs/
 
-  Offizielles Typst-Tutorial:
-  - https://typst.app/docs/tutorial
+  - Offizielles Typst-Tutorial: https://typst.app/docs/tutorial
 
-  Offizieller Typst-Discord:
-  - https://discord.gg/2uDybryKPe
+  - Offizieller Typst-Discord: https://discord.gg/2uDybryKPe
 
-  Code für diese Präsentation und weitere Beipsiele:
-  - https://github.com/survari/typst-seminar
+  - Code für diese Präsentation und weitere Beipsiele: https://github.com/survari/typst-seminar
 
-  Masterarbeit von Laurenz Mädje über Typst:
-  - https://www.user.tu-berlin.de/laurmaedje/programmable-markup-language-for-typesetting.pdf
+  - Masterarbeit von Laurenz Mädje über Typst: https://www.user.tu-berlin.de/laurmaedje/programmable-markup-language-for-typesetting.pdf
+
+  - Lambdas, States und Counter: https://typst.app/project/rpnqiqoQNfxXjHQmpJ81nF
 ]
