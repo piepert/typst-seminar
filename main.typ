@@ -609,7 +609,7 @@ Wirklich, versprochen! #lorem(20)
 
 #slide(title: "Show-Regeln" + slide-footnote(link("https://typst.app/docs/reference/styling/")))[#{
     let code = ```
-#show heading: set text(navy)
+#show heading: set text(red)
 
 === Hallo!
 
