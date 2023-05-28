@@ -674,7 +674,7 @@ In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Ty
 #new-section("Die Typst-Dokumentation...")
 
 #slide[
-  - #link("https://typst.apps/docs") als Nachschlagwerk
+  - #link("https://typst.app/docs") als Nachschlagwerk
   - Dokumentation ist wichtig!
 ]
 
@@ -1053,7 +1053,7 @@ Multiple sources say ...
 ]]]
 
 #slide(title: "Weiteres")[
-  #set text(size: 20pt)
+  #set text(size: 18pt)
   *Übrigens:* Diese gesamte Präsentation wurde alleine in Typst erstellt.
 
   - Typst Dokumentation: https://typst.app/docs/
@@ -1067,4 +1067,6 @@ Multiple sources say ...
   - Masterarbeit von Laurenz Mädje über Typst: https://www.user.tu-berlin.de/laurmaedje/programmable-markup-language-for-typesetting.pdf
 
   - Lambdas, States und Counter: https://typst.app/project/rpnqiqoQNfxXjHQmpJ81nF
+
+  - Liste mit Typst-Projekten: https://github.com/qjcg/awesome-typst
 ]
