@@ -256,6 +256,10 @@ Missing \endcsname inserted.
 
   #link("https://typst.app/")
 
+  Temporäre Accounts (mit $1 <= #[`N`] <= 15$):
+  - E-Mail: `typstseminarN@byom.de`
+  - Passwort: `typstseminarN`
+
   /*
   - Browser und Website öffnen
   - Anmeldung per tmp-Acc. oder eigene Accounts erstellen
