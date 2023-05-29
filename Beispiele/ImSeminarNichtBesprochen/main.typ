@@ -99,8 +99,34 @@ a => {
 let f = c => c * 7 // f(3) = 21
 ```
 
+= Erweiterte Show-Regeln
+Es ist möglich in `show`-Regeln Inhalte mehr anzupassen, als im Seminar gezeigt. Dazu werden Ausdrücke verwendet, die ein Argument entgegennehmen. Hier ein Beispiel, in dem alle Überschriften mit "Überschrift:" beginnen sollen:
+
+```typ
+#show heading: it => [Überschrift: ] + it.body
+
+= Wichtiger Text
+```
+
+Wird zu:
+
+#block(inset: (left: 1em))[
+  #set heading(outlined: false) // soll ja nicht im Inhaltsverzeichnis auftreten
+  #show heading: it => [Überschrift: ] + it.body
+
+  = Wichtiger Text
+]
+
+Ein wichtiger Hinweis muss angebracht werden: es ist möglich rekursive Regeln zu erzeugen, die den Compiler zum Absturz bringen. Hier ein Beispiel:
+
+```typ
+#show heading: it => heading([Überschrift: ] + it.body)
+```
+
+Erzeugt man in der `show`-Regel das Element, das durch diese Regel beeinflusst wird, dann stürzt der Compiler ab, weil er diese Regel versucht rekursiv ohne Abbruchbedingung anzuwenden.
+
 = Counter
-#ssc[Pure Functions.] Ein imperativer (und in Typst nicht-funktionsfähiger) Ansatz zu Zählen wäre folgender:
+#ssc[Pure Functions.] Ein imperativer (und in Typst nicht-funktionsfähiger) Ansatz zu zählen wäre Folgender:
 
 ```typ
 #let counter = 0
@@ -115,7 +141,7 @@ Das zweite Hallo: #counter!
 
 Schreibt man diesen Code in Typst, erhält man den folgenden Fehler: `error: variables from outside the function are read-only and cannot be modified`.
 
-Das klappt also nicht. Es verstößt auch gegen den Grundsatz von "Pure Functions" in Typst. Eine Funktion kann sich keine Dinge merken und keine Variablen von außen verändern. Mit den gleichen Argumenten gibt eine Funktion immer den gleichen Rückgabewert zurück (Zufall ist deswegen in Typst (bisher) auch nicht möglich). _(Fun-Fact: Typst ist wegen genau diesem Prinzip auch so unglaublich schnell. Es kann sich nämlich den Wert der Funktionen merken und muss ihn nicht immer neu berechnen.)_ `step()` übernimmt gar keine Argumente, also muss sie immer den gleichen Rückgabewert haben. Für eine imperative Denkweise ist das problematisch. Wie lösen wir das Problem?
+Das klappt also nicht. Es verstößt auch gegen den Grundsatz von "Pure Functions" in Typst. Eine Funktion kann sich keine Dinge merken und keine Variablen von außen verändern. Mit den gleichen Argumenten gibt eine Funktion immer den gleichen Rückgabewert zurück. _(Fun-Fact: Typst ist wegen genau dieses Prinzips auch so unglaublich schnell. Es kann sich nämlich den Wert der Funktionen merken und muss ihn nicht immer neu berechnen.)_ `step()` übernimmt gar keine Argumente, also muss sie immer den gleichen Rückgabewert haben. Für eine imperative Denkweise ist das problematisch. Wie lösen wir das Problem?
 
 #ssc[Lasst uns zählen!] Es geht also trotzdem. Aber wie? Die Antwort: States. Eine spezifische Art dieser States sind Counter. Ohne viel zu reden, hier ein Beispiel:
 

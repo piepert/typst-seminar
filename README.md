@@ -5,3 +5,5 @@
 Die Präsentation liegt in [`main.typ`](main.typ) und kann in [`main.pdf`](main.pdf) angesehen werden.
 
 In `Beispiele/` liegen einige kleine und große Dokumente, die mit Typst geschrieben wurden.
+
+Ein paar weitere Infos zu Typst gibt es unter [`Beispiele/ImSeminarNichtBesprochen/main.pdf`](Beispiele/ImSeminarNichtBesprochen/main.pdf).
