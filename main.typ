@@ -247,6 +247,7 @@ Missing \endcsname inserted.
 
 #new-section("Die Web-App")
 #slide(title: "Ab ans Werk!")[
+  #set text(size: 20pt)
   Vorteile:
   - alle Dateien online
   - verschiedene Projekte erstellbar
@@ -259,6 +260,8 @@ Missing \endcsname inserted.
   Temporäre Accounts (mit $1 <= #[`N`] <= 15$):
   - E-Mail: `typstseminarN@byom.de`
   - Passwort: `typstseminarN`
+
+  Link zur Präsentation: #link("https://github.com/survari/typst-seminar")
 
   /*
   - Browser und Website öffnen
@@ -635,7 +638,7 @@ Project is progressing badly.
       align(top, text(size: 20pt, eval("["+code.text+"]"))))
 }]
 
-#task[Wie realisiert man das Folgende in Typst?
+#task[Wie realisiert man das Folgende in Typst? Hinweis: Die `show`-Regel ist nicht auf `#lorem()` anwendbar.
 
 #block(inset: 1em, stroke: black, [
   #set par(justify: true)
