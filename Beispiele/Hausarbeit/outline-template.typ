@@ -2,7 +2,7 @@
   heading(title, numbering: none)
 
   locate(it => {
-    let elements = query(heading, after: it)
+    let elements = query(selector(heading).after(it), it)
 
     for (i, e) in elements.enumerate() {
       if e.outlined == false or (depth != none and r.level > depth) { continue }
