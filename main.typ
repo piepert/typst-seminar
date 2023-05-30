@@ -1016,7 +1016,7 @@ Multiple sources say ...
     - Paketmanager
     - Verbesserung des Mathe-Layouts
     - HTML Output
-    - ...
+    - https://typst.app/docs/roadmap
   ]]
 ]
 
