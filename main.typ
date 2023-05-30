@@ -644,14 +644,14 @@ Project is progressing badly.
   #set par(justify: true)
   #show "Typst": strong
 
-  In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _#lorem(20)_
+  In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _Kleine Wiederholung: Wie macht man in Typst nochmal etwas kursiv?_
 ])
 ][
 ```typ
 #set par(justify: true)
 #show "Typst": strong
 
-In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _#lorem(20)_
+In Typst sind show- und set-Regeln sehr mächtig. Kann man Sie, kann man auch Typst. Typst soll immer fett gedruckt werden. Der Absatz ist Blocksatz. _Kleine Wiederholung: Wie macht man in Typst nochmal etwas kursiv?_
 ```
 ]
 
