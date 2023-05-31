@@ -105,7 +105,7 @@ Es ist möglich in `show`-Regeln Inhalte mehr anzupassen, als im Seminar gezeigt
 ```typ
 #show heading: it => [Überschrift: ] + it.body
 
-= Wichtiger Text
+=== Wichtiger Text
 ```
 
 Wird zu:
@@ -114,7 +114,7 @@ Wird zu:
   #set heading(outlined: false) // soll ja nicht im Inhaltsverzeichnis auftreten
   #show heading: it => [Überschrift: ] + it.body
 
-  = Wichtiger Text
+  === Wichtiger Text
 ]
 
 Ein wichtiger Hinweis muss angebracht werden: es ist möglich rekursive Regeln zu erzeugen, die den Compiler zum Absturz bringen. Hier ein Beispiel:
