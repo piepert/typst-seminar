@@ -1069,6 +1069,8 @@ Multiple sources say ...
 
   - Masterarbeit von Laurenz Mädje über Typst: https://www.user.tu-berlin.de/laurmaedje/programmable-markup-language-for-typesetting.pdf
 
+  - Masterarbeit von Martin Haug über Typst: https://www.user.tu-berlin.de/mhaug/fast-typesetting-incremental-compilation.pdf
+
   - Lambdas, States und Counter: https://typst.app/project/rpnqiqoQNfxXjHQmpJ81nF
 
   - Liste mit Typst-Projekten: https://github.com/qjcg/awesome-typst
